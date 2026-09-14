@@ -1,0 +1,8 @@
+seed: 42
+batch_size: 64
+optimizer: SGD
+learning_rate: 0.01
+momentum: 0.9
+epochs: 3
+device: auto
+data_dir: data
