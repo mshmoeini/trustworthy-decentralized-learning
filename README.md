@@ -4,7 +4,7 @@ This project develops a reproducible PyTorch framework for studying how heteroge
 
 ## Current scope
 
-The current codebase establishes the project structure and a small Fashion-MNIST convolutional model. Decentralized learning, non-IID partitioning, Byzantine behavior, and robust peer selection are outside the current scope.
+The current codebase provides a small Fashion-MNIST convolutional model and a reproducible centralized training baseline. Decentralized learning, non-IID partitioning, Byzantine behavior, and robust peer selection are outside the current scope.
 
 > **Active development:** This repository is being built milestone by milestone and does not yet contain final research results.
 
