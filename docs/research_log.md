@@ -108,3 +108,19 @@ All clients participated every round with unequal sizes, and the partitions cove
 The full test suite passed (62 tests). Added synthetic tests cover weighted aggregation, input immutability, compatibility and count validation, safe integer buffers, parameter changes during local training, identical client initial weights, global model isolation, tiny full rounds, runner metadata, and reproducibility. The existing centralized training implementation and CNN were not modified.
 
 These are development validation runs, not final scientific results. No decentralized communication, Byzantine behavior, robust aggregation, or Milestone 4 work was implemented.
+
+## Documentation figures for Milestones 1–3
+
+**Date:** 2026-09-17
+
+Published five documentation figures: the historical CPU centralized baseline, class-proportion heatmaps, client sample counts, per-client label total variation with equally weighted means, and FedAvg global/local learning curves. PNGs support README display and SVGs preserve editable vector output. The centralized figure uses the recorded rounded Milestone 1 table; other plots use the original unrounded development JSON metrics and class counts. No new training run or hyperparameter tuning was performed.
+
+`docs/figure_data/development_checks.json` is a deliberately small archival summary, with source-file SHA-256 hashes, run metadata, and experiment code commit `8fb3cd9d45961305fa4010ec9c49c9fb78337622`. Original partition inspection and FedAvg client counts were checked for agreement, along with the identical repeated alpha 0.3 report. The plotting script validates full class totals, client sizes, configurations, round records, and full participation. The selected snapshot and assets are committed as documentation; raw results, data, caches, and environments remain ignored, with `.gitignore` unchanged.
+
+Reproduction command after installing the optional plotting dependency (`python -m pip install -e ".[plots]"`):
+
+```bash
+python scripts/plot_development_checks.py
+```
+
+All five figures were visually inspected, all ten PNG/SVG exports reproduced byte-for-byte in this environment (Matplotlib 3.11.2), and all 62 existing tests passed. README captions distinguish clients from independent experimental replications, avoid inferred confidence intervals or significance claims, separate centralized epochs from federated rounds, and distinguish local training loss from global test loss. These remain single-seed development checks, not final research evidence; Milestone 4 has not been started.
