@@ -1,0 +1,5 @@
+seed: 42
+num_clients: 10
+alpha: 0.3
+min_samples_per_client: 1
+data_dir: data
