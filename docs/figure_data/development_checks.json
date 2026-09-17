@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "verification_date": "2026-09-17",
   "source_code_commit": "8fb3cd9d45961305fa4010ec9c49c9fb78337622",
   "centralized_baseline": {
@@ -9,7 +9,7 @@
     "source": {
       "file": "docs/research_log.md",
       "section": "Milestone 1: centralized development baseline",
-      "sha256": "cdc28977797fc05288b54cac5632dd16d91f0f62dc436b24f1cf46148429f687"
+      "sha256": "d5e879dc5247ed20bfbb8f9418463adf923a91c03394874add29253f89140286"
     },
     "precision": "Recorded losses rounded to 4 decimals; accuracy rounded to 2 percentage decimals.",
     "epochs": [
@@ -739,5 +739,3775 @@
         }
       ]
     }
-  ]
+  ],
+  "milestone4": {
+    "verification_date": "2026-09-17",
+    "source_code": {
+      "commit": "22aeb9ea560a20454a7bee8e37ecc8b672867d6d",
+      "hash_basis": "committed Git blob bytes",
+      "relationship_to_runs": "Development runs preceded this commit; shared helpers were subsequently extracted without changing static training mathematics.",
+      "files": [
+        {
+          "file": "configs/decentralized.yaml",
+          "sha256": "f5db18e442cf4bee501f2544d9169fce2121c0ef89747b43424123a40f1fb548"
+        },
+        {
+          "file": "scripts/run_decentralized_checks.py",
+          "sha256": "08d4d4e61c3d50b84cc70644ac191eca229287a69ed4a23fc9f9da22bbc038f4"
+        },
+        {
+          "file": "pyproject.toml",
+          "sha256": "cefa2749f925a581acc569a3d6bd4def4169ce169e5c8b25a8e029cb05a4d5ed"
+        },
+        {
+          "file": "src/tdl/seed.py",
+          "sha256": "e8162101168daeca0aaa36cee817efab3f9ab96affa2e32edee5831ba2888965"
+        },
+        {
+          "file": "src/tdl/models/cnn.py",
+          "sha256": "57ec6978714c62379658c6de33e4d163ad240f02ea0189485a6e624e39c4101c"
+        },
+        {
+          "file": "src/tdl/data/partition.py",
+          "sha256": "f73fb700c6e45d78358cfb3f6f605e4643f220af9df11aef11c98762a789d578"
+        },
+        {
+          "file": "src/tdl/data/fashion_mnist.py",
+          "sha256": "e737fec48d793df92ed7207e5a2ba5a7fd57265dc921bb2c79a24ddadfebae30"
+        },
+        {
+          "file": "src/tdl/federated/training.py",
+          "sha256": "b06fb32523ad7e360952a7bb535f73979b0ceee32675c7f1a340166d92de777f"
+        },
+        {
+          "file": "src/tdl/federated/aggregation.py",
+          "sha256": "d425457c72d246ee609a3c5292028941e721d905b74dc31e4de661e5fd6b9415"
+        },
+        {
+          "file": "src/tdl/training/centralized.py",
+          "sha256": "53c00ed05abc18ae7afa66ef6f9cd8df66b18a2c4481a9faab1a21149b2ec00f"
+        },
+        {
+          "file": "src/tdl/training/evaluate.py",
+          "sha256": "e468b927459ed0f3f9c8b366104740fdffce67969a2b6e00da70f803fac02862"
+        },
+        {
+          "file": "src/tdl/decentralized/__init__.py",
+          "sha256": "7dabd0a43b3e62642f0d591bdb2cadf5885b96141927d683af9b46e2b7aa4172"
+        },
+        {
+          "file": "src/tdl/decentralized/aggregation.py",
+          "sha256": "5d0ed3d5be5864dc153c48870a58671ffa615832503aa36c059c9ecb2934b16d"
+        },
+        {
+          "file": "src/tdl/decentralized/consensus.py",
+          "sha256": "94dd6ba7dced50efb23edf0b5c05f46366803e6ec7ebfa150f479d176fbe4c0d"
+        },
+        {
+          "file": "src/tdl/decentralized/epidemic.py",
+          "sha256": "09638b25c5d3bfaf4001c611450b5b488f2e4d6967fe235c156f94ad61f67712"
+        },
+        {
+          "file": "src/tdl/decentralized/runner.py",
+          "sha256": "f87300346e254d913be05d20e3f1c5d78fd3bf7e1a114ab27126572a381c6915"
+        },
+        {
+          "file": "src/tdl/decentralized/topology.py",
+          "sha256": "d983b6953113dcd65ec42065950c72c3062d9a4383b11ad7bdca9ece3300c13e"
+        },
+        {
+          "file": "src/tdl/decentralized/training.py",
+          "sha256": "daeff89ab08f6427dd8fac9b4ad393987def47e8ec203bc9bb47e065b9680813"
+        }
+      ]
+    },
+    "summary_source": {
+      "file": "milestone4_development_summary.json",
+      "sha256": "f1481b7b9556af245d4c8cd552a151190a9e5cd745f2d562898cd3cdc1edc525"
+    },
+    "rows": [
+      {
+        "topology": "ring_degree_2",
+        "alpha": 10.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.82225,
+        "worst_accuracy": 0.8097,
+        "accuracy_std": 0.007070820320160891,
+        "mean_test_loss": 0.4836611613225937,
+        "disagreement": 0.0012498339000076642,
+        "edges": 10,
+        "average_degree": 2.0,
+        "minimum_degree": 2,
+        "maximum_degree": 2,
+        "transmissions_per_round": 20,
+        "average_aggregation_size": 3.0,
+        "report": "decentralized_ring_degree_2_alpha_10.json"
+      },
+      {
+        "topology": "ring_degree_4",
+        "alpha": 10.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.82662,
+        "worst_accuracy": 0.8199,
+        "accuracy_std": 0.004373053852858444,
+        "mean_test_loss": 0.47074383643627166,
+        "disagreement": 0.0006090118207109127,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 4,
+        "maximum_degree": 4,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_ring_degree_4_alpha_10.json"
+      },
+      {
+        "topology": "random_regular_degree_4",
+        "alpha": 10.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.82719,
+        "worst_accuracy": 0.82,
+        "accuracy_std": 0.003405422147105997,
+        "mean_test_loss": 0.47046497618198396,
+        "disagreement": 0.0005319259161805188,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 4,
+        "maximum_degree": 4,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_random_regular_degree_4_alpha_10.json"
+      },
+      {
+        "topology": "small_world_degree_4",
+        "alpha": 10.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.8263199999999999,
+        "worst_accuracy": 0.8198,
+        "accuracy_std": 0.0033887460807797407,
+        "mean_test_loss": 0.470458258471489,
+        "disagreement": 0.0006280862806731863,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 3,
+        "maximum_degree": 6,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_small_world_degree_4_alpha_10.json"
+      },
+      {
+        "topology": "fully_connected",
+        "alpha": 10.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.8286,
+        "worst_accuracy": 0.8286,
+        "accuracy_std": 0.0,
+        "mean_test_loss": 0.46308047013282777,
+        "disagreement": 0.0,
+        "edges": 45,
+        "average_degree": 9.0,
+        "minimum_degree": 9,
+        "maximum_degree": 9,
+        "transmissions_per_round": 90,
+        "average_aggregation_size": 10.0,
+        "report": "decentralized_fully_connected_alpha_10.json"
+      },
+      {
+        "topology": "ring_degree_2",
+        "alpha": 1.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.76702,
+        "worst_accuracy": 0.7404,
+        "accuracy_std": 0.018883686080847673,
+        "mean_test_loss": 0.5980983225393295,
+        "disagreement": 0.0019563121631775084,
+        "edges": 10,
+        "average_degree": 2.0,
+        "minimum_degree": 2,
+        "maximum_degree": 2,
+        "transmissions_per_round": 20,
+        "average_aggregation_size": 3.0,
+        "report": "decentralized_ring_degree_2_alpha_1.json"
+      },
+      {
+        "topology": "ring_degree_4",
+        "alpha": 1.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.79942,
+        "worst_accuracy": 0.7755,
+        "accuracy_std": 0.013477522027435173,
+        "mean_test_loss": 0.5268110260820389,
+        "disagreement": 0.000958389982454198,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 4,
+        "maximum_degree": 4,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_ring_degree_4_alpha_1.json"
+      },
+      {
+        "topology": "random_regular_degree_4",
+        "alpha": 1.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.79227,
+        "worst_accuracy": 0.7592,
+        "accuracy_std": 0.017191512440736568,
+        "mean_test_loss": 0.5322118597650528,
+        "disagreement": 0.0008838595483069247,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 4,
+        "maximum_degree": 4,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_random_regular_degree_4_alpha_1.json"
+      },
+      {
+        "topology": "small_world_degree_4",
+        "alpha": 1.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.7982,
+        "worst_accuracy": 0.7719,
+        "accuracy_std": 0.015353761754045802,
+        "mean_test_loss": 0.5258010267210007,
+        "disagreement": 0.0009617237242772715,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 3,
+        "maximum_degree": 6,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_small_world_degree_4_alpha_1.json"
+      },
+      {
+        "topology": "fully_connected",
+        "alpha": 1.0,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.8268,
+        "worst_accuracy": 0.8268,
+        "accuracy_std": 0.0,
+        "mean_test_loss": 0.4735515175819397,
+        "disagreement": 0.0,
+        "edges": 45,
+        "average_degree": 9.0,
+        "minimum_degree": 9,
+        "maximum_degree": 9,
+        "transmissions_per_round": 90,
+        "average_aggregation_size": 10.0,
+        "report": "decentralized_fully_connected_alpha_1.json"
+      },
+      {
+        "topology": "ring_degree_2",
+        "alpha": 0.3,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.66866,
+        "worst_accuracy": 0.6349,
+        "accuracy_std": 0.031087109868882978,
+        "mean_test_loss": 1.021494530506134,
+        "disagreement": 0.0025971543262528532,
+        "edges": 10,
+        "average_degree": 2.0,
+        "minimum_degree": 2,
+        "maximum_degree": 2,
+        "transmissions_per_round": 20,
+        "average_aggregation_size": 3.0,
+        "report": "decentralized_ring_degree_2_alpha_0.3.json"
+      },
+      {
+        "topology": "ring_degree_4",
+        "alpha": 0.3,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.72102,
+        "worst_accuracy": 0.6541,
+        "accuracy_std": 0.030438915880825975,
+        "mean_test_loss": 0.771574374089241,
+        "disagreement": 0.001347314935984488,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 4,
+        "maximum_degree": 4,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_ring_degree_4_alpha_0.3.json"
+      },
+      {
+        "topology": "random_regular_degree_4",
+        "alpha": 0.3,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.72871,
+        "worst_accuracy": 0.6902,
+        "accuracy_std": 0.023566393444903706,
+        "mean_test_loss": 0.7571902860736847,
+        "disagreement": 0.0011740418928873184,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 4,
+        "maximum_degree": 4,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_random_regular_degree_4_alpha_0.3.json"
+      },
+      {
+        "topology": "small_world_degree_4",
+        "alpha": 0.3,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.73608,
+        "worst_accuracy": 0.6921,
+        "accuracy_std": 0.0249806645227864,
+        "mean_test_loss": 0.7483706572961807,
+        "disagreement": 0.0014173380783155944,
+        "edges": 20,
+        "average_degree": 4.0,
+        "minimum_degree": 3,
+        "maximum_degree": 6,
+        "transmissions_per_round": 40,
+        "average_aggregation_size": 5.0,
+        "report": "decentralized_small_world_degree_4_alpha_0.3.json"
+      },
+      {
+        "topology": "fully_connected",
+        "alpha": 0.3,
+        "seed": 42,
+        "round": 3,
+        "device": "cuda",
+        "mean_accuracy": 0.7703,
+        "worst_accuracy": 0.7703,
+        "accuracy_std": 0.0,
+        "mean_test_loss": 0.6120484283924102,
+        "disagreement": 0.0,
+        "edges": 45,
+        "average_degree": 9.0,
+        "minimum_degree": 9,
+        "maximum_degree": 9,
+        "transmissions_per_round": 90,
+        "average_aggregation_size": 10.0,
+        "report": "decentralized_fully_connected_alpha_0.3.json"
+      }
+    ],
+    "reports": [
+      {
+        "alpha": 10.0,
+        "topology_name": "ring_degree_2",
+        "source": {
+          "file": "decentralized_ring_degree_2_alpha_10.json",
+          "sha256": "12c034077a86262604216df5d1f053c2c1d522daf5671bed79c81c173a3b0578"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 10.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "ring_degree_2",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 10,
+          "average_degree": 2.0,
+          "minimum_degree": 2,
+          "maximum_degree": 2,
+          "connected": true,
+          "directed_model_transmissions_per_round": 20,
+          "average_aggregation_size_including_self": 3.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              9
+            ],
+            "1": [
+              0,
+              2
+            ],
+            "2": [
+              1,
+              3
+            ],
+            "3": [
+              2,
+              4
+            ],
+            "4": [
+              3,
+              5
+            ],
+            "5": [
+              4,
+              6
+            ],
+            "6": [
+              5,
+              7
+            ],
+            "7": [
+              6,
+              8
+            ],
+            "8": [
+              7,
+              9
+            ],
+            "9": [
+              0,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 10.0,
+        "topology_name": "ring_degree_4",
+        "source": {
+          "file": "decentralized_ring_degree_4_alpha_10.json",
+          "sha256": "223e4f462f14b04d319e9159e8ad2ccee0b269cb401902d174dab09252c1d2f9"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 10.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "ring_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 4,
+          "maximum_degree": 4,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              8,
+              9
+            ],
+            "1": [
+              0,
+              2,
+              3,
+              9
+            ],
+            "2": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "3": [
+              1,
+              2,
+              4,
+              5
+            ],
+            "4": [
+              2,
+              3,
+              5,
+              6
+            ],
+            "5": [
+              3,
+              4,
+              6,
+              7
+            ],
+            "6": [
+              4,
+              5,
+              7,
+              8
+            ],
+            "7": [
+              5,
+              6,
+              8,
+              9
+            ],
+            "8": [
+              0,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              7,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 10.0,
+        "topology_name": "random_regular_degree_4",
+        "source": {
+          "file": "decentralized_random_regular_degree_4_alpha_10.json",
+          "sha256": "9cd0252ce16528cdb0d5e7285d8ea55692d5dae4b23fd3b0a51fb7b7e16e51f2"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 10.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "random_regular_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 4,
+          "maximum_degree": 4,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              3,
+              6
+            ],
+            "1": [
+              0,
+              4,
+              7,
+              8
+            ],
+            "2": [
+              0,
+              3,
+              4,
+              6
+            ],
+            "3": [
+              0,
+              2,
+              8,
+              9
+            ],
+            "4": [
+              1,
+              2,
+              5,
+              8
+            ],
+            "5": [
+              4,
+              6,
+              7,
+              9
+            ],
+            "6": [
+              0,
+              2,
+              5,
+              9
+            ],
+            "7": [
+              1,
+              5,
+              8,
+              9
+            ],
+            "8": [
+              1,
+              3,
+              4,
+              7
+            ],
+            "9": [
+              3,
+              5,
+              6,
+              7
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 10.0,
+        "topology_name": "small_world_degree_4",
+        "source": {
+          "file": "decentralized_small_world_degree_4_alpha_10.json",
+          "sha256": "1a2e7c5f12937c0fad18d18862461981d161a78cd93d3125b39adb2ee347e618"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 10.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "small_world_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 3,
+          "maximum_degree": 6,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              4,
+              9
+            ],
+            "1": [
+              0,
+              3,
+              4,
+              8,
+              9
+            ],
+            "2": [
+              0,
+              3,
+              4
+            ],
+            "3": [
+              1,
+              2,
+              5,
+              8
+            ],
+            "4": [
+              0,
+              1,
+              2,
+              6
+            ],
+            "5": [
+              3,
+              6,
+              7,
+              8
+            ],
+            "6": [
+              4,
+              5,
+              7,
+              8
+            ],
+            "7": [
+              5,
+              6,
+              8
+            ],
+            "8": [
+              1,
+              3,
+              5,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 10.0,
+        "topology_name": "fully_connected",
+        "source": {
+          "file": "decentralized_fully_connected_alpha_10.json",
+          "sha256": "7b9ebb5af9fec19919fc7d3c630a3541fe9414646c9f1ea0a0e82165487aae62"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 10.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "fully_connected",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 45,
+          "average_degree": 9.0,
+          "minimum_degree": 9,
+          "maximum_degree": 9,
+          "connected": true,
+          "directed_model_transmissions_per_round": 90,
+          "average_aggregation_size_including_self": 10.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "1": [
+              0,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "2": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "3": [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "4": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "5": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6,
+              7,
+              8,
+              9
+            ],
+            "6": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              7,
+              8,
+              9
+            ],
+            "7": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              8,
+              9
+            ],
+            "8": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 1.0,
+        "topology_name": "ring_degree_2",
+        "source": {
+          "file": "decentralized_ring_degree_2_alpha_1.json",
+          "sha256": "195b81b0c7b579c7ac732f8567992624a6a64ef1693a0c0cf1bfa20a3a9e5b8b"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 1.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "ring_degree_2",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 10,
+          "average_degree": 2.0,
+          "minimum_degree": 2,
+          "maximum_degree": 2,
+          "connected": true,
+          "directed_model_transmissions_per_round": 20,
+          "average_aggregation_size_including_self": 3.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              9
+            ],
+            "1": [
+              0,
+              2
+            ],
+            "2": [
+              1,
+              3
+            ],
+            "3": [
+              2,
+              4
+            ],
+            "4": [
+              3,
+              5
+            ],
+            "5": [
+              4,
+              6
+            ],
+            "6": [
+              5,
+              7
+            ],
+            "7": [
+              6,
+              8
+            ],
+            "8": [
+              7,
+              9
+            ],
+            "9": [
+              0,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 1.0,
+        "topology_name": "ring_degree_4",
+        "source": {
+          "file": "decentralized_ring_degree_4_alpha_1.json",
+          "sha256": "9bcaa0164b56bcf6a68512a380c99c9ef9753831567e54076bc119710d1bffec"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 1.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "ring_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 4,
+          "maximum_degree": 4,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              8,
+              9
+            ],
+            "1": [
+              0,
+              2,
+              3,
+              9
+            ],
+            "2": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "3": [
+              1,
+              2,
+              4,
+              5
+            ],
+            "4": [
+              2,
+              3,
+              5,
+              6
+            ],
+            "5": [
+              3,
+              4,
+              6,
+              7
+            ],
+            "6": [
+              4,
+              5,
+              7,
+              8
+            ],
+            "7": [
+              5,
+              6,
+              8,
+              9
+            ],
+            "8": [
+              0,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              7,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 1.0,
+        "topology_name": "random_regular_degree_4",
+        "source": {
+          "file": "decentralized_random_regular_degree_4_alpha_1.json",
+          "sha256": "0addce0d1902ac0aa4c7781d021e9e7fc094e7e8cba9b93caa499a2048149ddd"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 1.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "random_regular_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 4,
+          "maximum_degree": 4,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              3,
+              6
+            ],
+            "1": [
+              0,
+              4,
+              7,
+              8
+            ],
+            "2": [
+              0,
+              3,
+              4,
+              6
+            ],
+            "3": [
+              0,
+              2,
+              8,
+              9
+            ],
+            "4": [
+              1,
+              2,
+              5,
+              8
+            ],
+            "5": [
+              4,
+              6,
+              7,
+              9
+            ],
+            "6": [
+              0,
+              2,
+              5,
+              9
+            ],
+            "7": [
+              1,
+              5,
+              8,
+              9
+            ],
+            "8": [
+              1,
+              3,
+              4,
+              7
+            ],
+            "9": [
+              3,
+              5,
+              6,
+              7
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 1.0,
+        "topology_name": "small_world_degree_4",
+        "source": {
+          "file": "decentralized_small_world_degree_4_alpha_1.json",
+          "sha256": "03e7960f0eda1aad71879730fae6976fdd8bf4355b1131f4b63d8e2dad702ca1"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 1.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "small_world_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 3,
+          "maximum_degree": 6,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              4,
+              9
+            ],
+            "1": [
+              0,
+              3,
+              4,
+              8,
+              9
+            ],
+            "2": [
+              0,
+              3,
+              4
+            ],
+            "3": [
+              1,
+              2,
+              5,
+              8
+            ],
+            "4": [
+              0,
+              1,
+              2,
+              6
+            ],
+            "5": [
+              3,
+              6,
+              7,
+              8
+            ],
+            "6": [
+              4,
+              5,
+              7,
+              8
+            ],
+            "7": [
+              5,
+              6,
+              8
+            ],
+            "8": [
+              1,
+              3,
+              5,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 1.0,
+        "topology_name": "fully_connected",
+        "source": {
+          "file": "decentralized_fully_connected_alpha_1.json",
+          "sha256": "4b768eafa0f4a042fde3796f2d7dae24909727a6c68baff32f0cf725696f3e73"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 1.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "fully_connected",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 45,
+          "average_degree": 9.0,
+          "minimum_degree": 9,
+          "maximum_degree": 9,
+          "connected": true,
+          "directed_model_transmissions_per_round": 90,
+          "average_aggregation_size_including_self": 10.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "1": [
+              0,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "2": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "3": [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "4": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "5": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6,
+              7,
+              8,
+              9
+            ],
+            "6": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              7,
+              8,
+              9
+            ],
+            "7": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              8,
+              9
+            ],
+            "8": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 0.3,
+        "topology_name": "ring_degree_2",
+        "source": {
+          "file": "decentralized_ring_degree_2_alpha_0.3.json",
+          "sha256": "1cd27cca1235cb2ee885ef36e62850c29704d42dde3bea0120f86e764df811a2"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "ring_degree_2",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 10,
+          "average_degree": 2.0,
+          "minimum_degree": 2,
+          "maximum_degree": 2,
+          "connected": true,
+          "directed_model_transmissions_per_round": 20,
+          "average_aggregation_size_including_self": 3.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              9
+            ],
+            "1": [
+              0,
+              2
+            ],
+            "2": [
+              1,
+              3
+            ],
+            "3": [
+              2,
+              4
+            ],
+            "4": [
+              3,
+              5
+            ],
+            "5": [
+              4,
+              6
+            ],
+            "6": [
+              5,
+              7
+            ],
+            "7": [
+              6,
+              8
+            ],
+            "8": [
+              7,
+              9
+            ],
+            "9": [
+              0,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 0.3,
+        "topology_name": "ring_degree_4",
+        "source": {
+          "file": "decentralized_ring_degree_4_alpha_0.3.json",
+          "sha256": "e2f1729f1b04dab86116410ca6deafcf30f3c298b3d7f45e62f400951c2fc15d"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "ring_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 4,
+          "maximum_degree": 4,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              8,
+              9
+            ],
+            "1": [
+              0,
+              2,
+              3,
+              9
+            ],
+            "2": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "3": [
+              1,
+              2,
+              4,
+              5
+            ],
+            "4": [
+              2,
+              3,
+              5,
+              6
+            ],
+            "5": [
+              3,
+              4,
+              6,
+              7
+            ],
+            "6": [
+              4,
+              5,
+              7,
+              8
+            ],
+            "7": [
+              5,
+              6,
+              8,
+              9
+            ],
+            "8": [
+              0,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              7,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 0.3,
+        "topology_name": "random_regular_degree_4",
+        "source": {
+          "file": "decentralized_random_regular_degree_4_alpha_0.3.json",
+          "sha256": "9491009dbb2f68d4289cb4712088bfadc8a3449103bd8326b2f5656771f3aca0"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "random_regular_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 4,
+          "maximum_degree": 4,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              3,
+              6
+            ],
+            "1": [
+              0,
+              4,
+              7,
+              8
+            ],
+            "2": [
+              0,
+              3,
+              4,
+              6
+            ],
+            "3": [
+              0,
+              2,
+              8,
+              9
+            ],
+            "4": [
+              1,
+              2,
+              5,
+              8
+            ],
+            "5": [
+              4,
+              6,
+              7,
+              9
+            ],
+            "6": [
+              0,
+              2,
+              5,
+              9
+            ],
+            "7": [
+              1,
+              5,
+              8,
+              9
+            ],
+            "8": [
+              1,
+              3,
+              4,
+              7
+            ],
+            "9": [
+              3,
+              5,
+              6,
+              7
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 0.3,
+        "topology_name": "small_world_degree_4",
+        "source": {
+          "file": "decentralized_small_world_degree_4_alpha_0.3.json",
+          "sha256": "f59daf4702ed81e9c88a3f320ed7591c3ef7cc5fa0bbeba8a7ecf8230f6f4c4a"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "small_world_degree_4",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 20,
+          "average_degree": 4.0,
+          "minimum_degree": 3,
+          "maximum_degree": 6,
+          "connected": true,
+          "directed_model_transmissions_per_round": 40,
+          "average_aggregation_size_including_self": 5.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              4,
+              9
+            ],
+            "1": [
+              0,
+              3,
+              4,
+              8,
+              9
+            ],
+            "2": [
+              0,
+              3,
+              4
+            ],
+            "3": [
+              1,
+              2,
+              5,
+              8
+            ],
+            "4": [
+              0,
+              1,
+              2,
+              6
+            ],
+            "5": [
+              3,
+              6,
+              7,
+              8
+            ],
+            "6": [
+              4,
+              5,
+              7,
+              8
+            ],
+            "7": [
+              5,
+              6,
+              8
+            ],
+            "8": [
+              1,
+              3,
+              5,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              8
+            ]
+          }
+        }
+      },
+      {
+        "alpha": 0.3,
+        "topology_name": "fully_connected",
+        "source": {
+          "file": "decentralized_fully_connected_alpha_0.3.json",
+          "sha256": "735f530139a83d3bff0044e3a94bd9a916eb362ee31a9f65c4652d377b78ad4b"
+        },
+        "metadata": {
+          "dataset": "Fashion-MNIST",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "torch_version": "2.14.0+cu130",
+          "cuda_runtime": "13.0",
+          "networkx_version": "3.6.1",
+          "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "node_seed_rule": "seed + round_number * num_clients + node_id (one-based rounds)",
+          "optimizer_state": "fresh per node per round",
+          "simulation": "sequential synchronous",
+          "aggregation": "self + neighbors, weighted by local partition sample counts",
+          "consensus_formula": "mean_{i<j} sqrt(sum_p ||theta_i,p-theta_j,p||^2 / P); floating parameters only",
+          "accuracy_std": "population standard deviation across nodes, in fraction units",
+          "traffic_definition": "2 * undirected edges full-model transmissions per round; excludes self",
+          "development_only": true
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "topology": "fully_connected",
+          "small_world_rewire_probability": 0.2
+        },
+        "topology": {
+          "num_nodes": 10,
+          "edges": 45,
+          "average_degree": 9.0,
+          "minimum_degree": 9,
+          "maximum_degree": 9,
+          "connected": true,
+          "directed_model_transmissions_per_round": 90,
+          "average_aggregation_size_including_self": 10.0,
+          "edge_list": [
+            [
+              0,
+              1
+            ],
+            [
+              0,
+              2
+            ],
+            [
+              0,
+              3
+            ],
+            [
+              0,
+              4
+            ],
+            [
+              0,
+              5
+            ],
+            [
+              0,
+              6
+            ],
+            [
+              0,
+              7
+            ],
+            [
+              0,
+              8
+            ],
+            [
+              0,
+              9
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              1,
+              4
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              1,
+              6
+            ],
+            [
+              1,
+              7
+            ],
+            [
+              1,
+              8
+            ],
+            [
+              1,
+              9
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              2,
+              4
+            ],
+            [
+              2,
+              5
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              2,
+              7
+            ],
+            [
+              2,
+              8
+            ],
+            [
+              2,
+              9
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              3,
+              7
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              3,
+              9
+            ],
+            [
+              4,
+              5
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              4,
+              8
+            ],
+            [
+              4,
+              9
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              5,
+              7
+            ],
+            [
+              5,
+              8
+            ],
+            [
+              5,
+              9
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              6,
+              9
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              7,
+              9
+            ],
+            [
+              8,
+              9
+            ]
+          ],
+          "neighbors": {
+            "0": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "1": [
+              0,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "2": [
+              0,
+              1,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "3": [
+              0,
+              1,
+              2,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "4": [
+              0,
+              1,
+              2,
+              3,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "5": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              6,
+              7,
+              8,
+              9
+            ],
+            "6": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              7,
+              8,
+              9
+            ],
+            "7": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              8,
+              9
+            ],
+            "8": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              9
+            ],
+            "9": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          }
+        }
+      }
+    ],
+    "fully_connected_fedavg_sanity_checks": [
+      {
+        "alpha": 0.3,
+        "same_training_config": true,
+        "identical_partition": true,
+        "fedavg_reference": "fedavg_alpha_0.3.json",
+        "rounds": [
+          {
+            "round": 1,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          },
+          {
+            "round": 2,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          },
+          {
+            "round": 3,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          }
+        ]
+      },
+      {
+        "alpha": 1.0,
+        "same_training_config": true,
+        "identical_partition": true,
+        "fedavg_reference": "fedavg_alpha_1.json",
+        "rounds": [
+          {
+            "round": 1,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          },
+          {
+            "round": 2,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          },
+          {
+            "round": 3,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          }
+        ]
+      },
+      {
+        "alpha": 10.0,
+        "same_training_config": true,
+        "identical_partition": true,
+        "fedavg_reference": "fedavg_alpha_10.json",
+        "rounds": [
+          {
+            "round": 1,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          },
+          {
+            "round": 2,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          },
+          {
+            "round": 3,
+            "accuracy_absolute_difference": 0.0,
+            "test_loss_absolute_difference": 0.0,
+            "training_loss_absolute_difference": 0.0,
+            "node_accuracy_std": 0.0,
+            "node_disagreement": 0.0
+          }
+        ]
+      }
+    ],
+    "interpretation": "Single-seed local development checks, not final scientific results.",
+    "accuracy_units": "fractions; std is population std across nodes",
+    "original_run_source_files": [
+      {
+        "file": "configs/decentralized.yaml",
+        "sha256": "f5db18e442cf4bee501f2544d9169fce2121c0ef89747b43424123a40f1fb548"
+      },
+      {
+        "file": "scripts/run_decentralized_checks.py",
+        "sha256": "08d4d4e61c3d50b84cc70644ac191eca229287a69ed4a23fc9f9da22bbc038f4"
+      },
+      {
+        "file": "pyproject.toml",
+        "sha256": "2281748fc1d5a8bf455f625ef7cff9035c5e7d92b08c9781a9f69aa84ef7725e"
+      },
+      {
+        "file": "src/tdl/seed.py",
+        "sha256": "230fea915ccaec1f9b7556aaa6e0e4d22c5bf793e2c49d5346e7e925794231c0"
+      },
+      {
+        "file": "src/tdl/models/cnn.py",
+        "sha256": "b3e6cc3c248cf3526d47671fb7610e25bbdc8ff4d9ca44ca7fc4dfeb10f6ed10"
+      },
+      {
+        "file": "src/tdl/data/partition.py",
+        "sha256": "f73fb700c6e45d78358cfb3f6f605e4643f220af9df11aef11c98762a789d578"
+      },
+      {
+        "file": "src/tdl/data/fashion_mnist.py",
+        "sha256": "327645cbcd712ec08e3fb4c3d829e87f5e723b2b9a90c1d9f9fadc7ea36e9f2c"
+      },
+      {
+        "file": "src/tdl/federated/training.py",
+        "sha256": "b06fb32523ad7e360952a7bb535f73979b0ceee32675c7f1a340166d92de777f"
+      },
+      {
+        "file": "src/tdl/federated/aggregation.py",
+        "sha256": "d425457c72d246ee609a3c5292028941e721d905b74dc31e4de661e5fd6b9415"
+      },
+      {
+        "file": "src/tdl/training/centralized.py",
+        "sha256": "dedc8e1629a4e92222fe1dff8104883ea1336da9ed264904f090ab9d3f4ff2d4"
+      },
+      {
+        "file": "src/tdl/training/evaluate.py",
+        "sha256": "d186d04dabc2cab7978b0297f9777ef6010d5617343e02c323cc4e0e19ff0d17"
+      },
+      {
+        "file": "src/tdl/decentralized/__init__.py",
+        "sha256": "7dabd0a43b3e62642f0d591bdb2cadf5885b96141927d683af9b46e2b7aa4172"
+      },
+      {
+        "file": "src/tdl/decentralized/aggregation.py",
+        "sha256": "5d0ed3d5be5864dc153c48870a58671ffa615832503aa36c059c9ecb2934b16d"
+      },
+      {
+        "file": "src/tdl/decentralized/consensus.py",
+        "sha256": "94dd6ba7dced50efb23edf0b5c05f46366803e6ec7ebfa150f479d176fbe4c0d"
+      },
+      {
+        "file": "src/tdl/decentralized/runner.py",
+        "sha256": "d925738dd94325367a2800d9243197b69aa41f604daf6773ef6b88add36cf35d"
+      },
+      {
+        "file": "src/tdl/decentralized/topology.py",
+        "sha256": "d983b6953113dcd65ec42065950c72c3062d9a4383b11ad7bdca9ece3300c13e"
+      },
+      {
+        "file": "src/tdl/decentralized/training.py",
+        "sha256": "bf1d8dcf6d11ae28550a7c17bcbeeca109b30f558af190a1568b982e9a41759d"
+      }
+    ]
+  }
 }
