@@ -4,7 +4,7 @@ This project develops a reproducible PyTorch framework for studying how heteroge
 
 ## Current scope
 
-The current codebase provides a small Fashion-MNIST convolutional model and a reproducible centralized training baseline. Decentralized learning, non-IID partitioning, Byzantine behavior, and robust peer selection are outside the current scope.
+The current codebase provides a small Fashion-MNIST convolutional model, a reproducible centralized training baseline, and reproducible Dirichlet client partitioning of training data. Federated and decentralized learning, Byzantine behavior, and robust peer selection are outside the current scope.
 
 > **Active development:** This repository is being built milestone by milestone and does not yet contain final research results.
 
@@ -38,3 +38,15 @@ python -m tdl.training.centralized --config configs/centralized.yaml
 ```
 
 GPU verification should report `True` for CUDA availability and the detected GPU name. Keep `device: auto`; the baseline should print `Device: cuda` when CUDA is available.
+
+## Inspect client partitions
+
+Partition Fashion-MNIST training labels without training a model:
+
+```bash
+python -m tdl.data.inspect_partition --config configs/partition.yaml
+```
+
+The default is 10 clients, seed 42, alpha 0.3, and at least one sample per client. The command prints per-client sample and class counts, verifies exact coverage and repeatability, and writes `results/partition_summary.json`. Use `--alpha` and `--output` to inspect other concentrations and retain separate local JSON summaries. Generated results and datasets remain ignored by Git.
+
+Each class receives an independent symmetric Dirichlet allocation. Larger alpha tends toward similar class allocations; smaller alpha favors label skew. Client sizes are not fixed. Allocations that violate the minimum are rejected using the same seeded RNG, with a default limit of 1000 attempts and a clear error if none succeeds. The JSON also reports mean label total variation from the global distribution (smaller values indicate more similar label proportions).
