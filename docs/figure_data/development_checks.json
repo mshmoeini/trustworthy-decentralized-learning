@@ -1,0 +1,743 @@
+{
+  "schema_version": 1,
+  "verification_date": "2026-09-17",
+  "source_code_commit": "8fb3cd9d45961305fa4010ec9c49c9fb78337622",
+  "centralized_baseline": {
+    "device": "cpu",
+    "verification_date": "2026-09-14",
+    "seed": 42,
+    "source": {
+      "file": "docs/research_log.md",
+      "section": "Milestone 1: centralized development baseline",
+      "sha256": "cdc28977797fc05288b54cac5632dd16d91f0f62dc436b24f1cf46148429f687"
+    },
+    "precision": "Recorded losses rounded to 4 decimals; accuracy rounded to 2 percentage decimals.",
+    "epochs": [
+      {
+        "epoch": 1,
+        "training_loss": 0.5096,
+        "test_loss": 0.3898,
+        "test_accuracy": 0.8582
+      },
+      {
+        "epoch": 2,
+        "training_loss": 0.3064,
+        "test_loss": 0.3113,
+        "test_accuracy": 0.8896
+      },
+      {
+        "epoch": 3,
+        "training_loss": 0.2627,
+        "test_loss": 0.2699,
+        "test_accuracy": 0.9014
+      }
+    ]
+  },
+  "interpretation": "Single-seed development validation; not final scientific results.",
+  "repeat_verification": {
+    "alpha": 0.3,
+    "reports_identical": true,
+    "source": {
+      "file": "fedavg_alpha_0.3_repeat.json",
+      "sha256": "abab929ce2277273a2de05dec65e026523bf7d3d0acb3a159711fa8a9de19485"
+    }
+  },
+  "checks": [
+    {
+      "alpha": 10.0,
+      "metadata": {
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 10.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0
+        },
+        "device": "cuda",
+        "dataset": "Fashion-MNIST",
+        "training_samples": 60000,
+        "test_samples": 10000,
+        "torch_version": "2.14.0+cu130",
+        "cuda_runtime": "13.0",
+        "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "client_seed_rule": "seed + round_number * num_clients + client_id (rounds start at 1)",
+        "optimizer_state": "fresh per client per round",
+        "participation": "all clients"
+      },
+      "sources": [
+        {
+          "file": "partition_alpha_10.json",
+          "sha256": "2528ac694c423c13dcaba510c274034b44c606c2560334275e78dbfdf56650d1"
+        },
+        {
+          "file": "fedavg_alpha_10.json",
+          "sha256": "f28b2b6853ec116ff7c39fb5c487f18a08e3fb09a03772c54047a997367f48d9"
+        }
+      ],
+      "clients": [
+        {
+          "client_id": 0,
+          "num_samples": 7076,
+          "class_counts": {
+            "0": 1139,
+            "1": 644,
+            "2": 706,
+            "3": 714,
+            "4": 529,
+            "5": 331,
+            "6": 744,
+            "7": 1056,
+            "8": 283,
+            "9": 930
+          }
+        },
+        {
+          "client_id": 1,
+          "num_samples": 5467,
+          "class_counts": {
+            "0": 274,
+            "1": 613,
+            "2": 419,
+            "3": 501,
+            "4": 426,
+            "5": 606,
+            "6": 529,
+            "7": 639,
+            "8": 653,
+            "9": 807
+          }
+        },
+        {
+          "client_id": 2,
+          "num_samples": 6390,
+          "class_counts": {
+            "0": 659,
+            "1": 794,
+            "2": 614,
+            "3": 328,
+            "4": 824,
+            "5": 854,
+            "6": 488,
+            "7": 640,
+            "8": 636,
+            "9": 553
+          }
+        },
+        {
+          "client_id": 3,
+          "num_samples": 5838,
+          "class_counts": {
+            "0": 723,
+            "1": 518,
+            "2": 810,
+            "3": 645,
+            "4": 792,
+            "5": 625,
+            "6": 422,
+            "7": 309,
+            "8": 420,
+            "9": 574
+          }
+        },
+        {
+          "client_id": 4,
+          "num_samples": 5625,
+          "class_counts": {
+            "0": 618,
+            "1": 894,
+            "2": 568,
+            "3": 416,
+            "4": 497,
+            "5": 297,
+            "6": 765,
+            "7": 783,
+            "8": 567,
+            "9": 220
+          }
+        },
+        {
+          "client_id": 5,
+          "num_samples": 5320,
+          "class_counts": {
+            "0": 760,
+            "1": 662,
+            "2": 374,
+            "3": 527,
+            "4": 522,
+            "5": 580,
+            "6": 648,
+            "7": 400,
+            "8": 447,
+            "9": 400
+          }
+        },
+        {
+          "client_id": 6,
+          "num_samples": 6008,
+          "class_counts": {
+            "0": 469,
+            "1": 426,
+            "2": 495,
+            "3": 757,
+            "4": 676,
+            "5": 931,
+            "6": 547,
+            "7": 652,
+            "8": 606,
+            "9": 449
+          }
+        },
+        {
+          "client_id": 7,
+          "num_samples": 6098,
+          "class_counts": {
+            "0": 535,
+            "1": 392,
+            "2": 784,
+            "3": 857,
+            "4": 626,
+            "5": 558,
+            "6": 761,
+            "7": 389,
+            "8": 602,
+            "9": 594
+          }
+        },
+        {
+          "client_id": 8,
+          "num_samples": 6016,
+          "class_counts": {
+            "0": 378,
+            "1": 514,
+            "2": 345,
+            "3": 806,
+            "4": 296,
+            "5": 670,
+            "6": 328,
+            "7": 579,
+            "8": 1174,
+            "9": 926
+          }
+        },
+        {
+          "client_id": 9,
+          "num_samples": 6162,
+          "class_counts": {
+            "0": 445,
+            "1": 543,
+            "2": 885,
+            "3": 449,
+            "4": 812,
+            "5": 548,
+            "6": 768,
+            "7": 553,
+            "8": 612,
+            "9": 547
+          }
+        }
+      ],
+      "initial_evaluation": {
+        "global_test_loss": 2.3033340827941893,
+        "global_test_accuracy": 0.0997
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "weighted_mean_client_training_loss": 1.1514942412286997,
+          "global_test_loss": 0.6484578222751617,
+          "global_test_accuracy": 0.7486,
+          "num_clients": 10,
+          "total_samples": 60000
+        },
+        {
+          "round": 2,
+          "weighted_mean_client_training_loss": 0.5983925344357888,
+          "global_test_loss": 0.5131326675891876,
+          "global_test_accuracy": 0.8109,
+          "num_clients": 10,
+          "total_samples": 60000
+        },
+        {
+          "round": 3,
+          "weighted_mean_client_training_loss": 0.5093586505264044,
+          "global_test_loss": 0.46308047013282777,
+          "global_test_accuracy": 0.8286,
+          "num_clients": 10,
+          "total_samples": 60000
+        }
+      ]
+    },
+    {
+      "alpha": 1.0,
+      "metadata": {
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 1.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0
+        },
+        "device": "cuda",
+        "dataset": "Fashion-MNIST",
+        "training_samples": 60000,
+        "test_samples": 10000,
+        "torch_version": "2.14.0+cu130",
+        "cuda_runtime": "13.0",
+        "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "client_seed_rule": "seed + round_number * num_clients + client_id (rounds start at 1)",
+        "optimizer_state": "fresh per client per round",
+        "participation": "all clients"
+      },
+      "sources": [
+        {
+          "file": "partition_alpha_1.json",
+          "sha256": "039a603422b7c27b30ed1e69a0b7b8ada8c0879fd3719401968018aa57e9bd77"
+        },
+        {
+          "file": "fedavg_alpha_1.json",
+          "sha256": "78c1bfe7cbbf13e041a4377ae3d517b56cdaaa5fc9a7287a3fb4451ee6104603"
+        }
+      ],
+      "clients": [
+        {
+          "client_id": 0,
+          "num_samples": 6270,
+          "class_counts": {
+            "0": 193,
+            "1": 419,
+            "2": 46,
+            "3": 1379,
+            "4": 1625,
+            "5": 573,
+            "6": 153,
+            "7": 776,
+            "8": 316,
+            "9": 790
+          }
+        },
+        {
+          "client_id": 1,
+          "num_samples": 3697,
+          "class_counts": {
+            "0": 53,
+            "1": 158,
+            "2": 250,
+            "3": 5,
+            "4": 234,
+            "5": 2026,
+            "6": 474,
+            "7": 68,
+            "8": 402,
+            "9": 27
+          }
+        },
+        {
+          "client_id": 2,
+          "num_samples": 7415,
+          "class_counts": {
+            "0": 683,
+            "1": 1214,
+            "2": 1076,
+            "3": 571,
+            "4": 1524,
+            "5": 558,
+            "6": 156,
+            "7": 110,
+            "8": 611,
+            "9": 912
+          }
+        },
+        {
+          "client_id": 3,
+          "num_samples": 6673,
+          "class_counts": {
+            "0": 264,
+            "1": 354,
+            "2": 52,
+            "3": 47,
+            "4": 619,
+            "5": 519,
+            "6": 1351,
+            "7": 1214,
+            "8": 977,
+            "9": 1276
+          }
+        },
+        {
+          "client_id": 4,
+          "num_samples": 5534,
+          "class_counts": {
+            "0": 700,
+            "1": 574,
+            "2": 858,
+            "3": 220,
+            "4": 92,
+            "5": 811,
+            "6": 227,
+            "7": 1242,
+            "8": 722,
+            "9": 88
+          }
+        },
+        {
+          "client_id": 5,
+          "num_samples": 4770,
+          "class_counts": {
+            "0": 2027,
+            "1": 214,
+            "2": 708,
+            "3": 251,
+            "4": 159,
+            "5": 427,
+            "6": 539,
+            "7": 90,
+            "8": 183,
+            "9": 172
+          }
+        },
+        {
+          "client_id": 6,
+          "num_samples": 11316,
+          "class_counts": {
+            "0": 965,
+            "1": 1597,
+            "2": 133,
+            "3": 2654,
+            "4": 177,
+            "5": 312,
+            "6": 1142,
+            "7": 1230,
+            "8": 2229,
+            "9": 877
+          }
+        },
+        {
+          "client_id": 7,
+          "num_samples": 4591,
+          "class_counts": {
+            "0": 44,
+            "1": 570,
+            "2": 1346,
+            "3": 446,
+            "4": 43,
+            "5": 438,
+            "6": 314,
+            "7": 235,
+            "8": 266,
+            "9": 889
+          }
+        },
+        {
+          "client_id": 8,
+          "num_samples": 5135,
+          "class_counts": {
+            "0": 8,
+            "1": 332,
+            "2": 1320,
+            "3": 244,
+            "4": 490,
+            "5": 180,
+            "6": 1392,
+            "7": 153,
+            "8": 128,
+            "9": 888
+          }
+        },
+        {
+          "client_id": 9,
+          "num_samples": 4599,
+          "class_counts": {
+            "0": 1063,
+            "1": 568,
+            "2": 211,
+            "3": 183,
+            "4": 1037,
+            "5": 156,
+            "6": 252,
+            "7": 882,
+            "8": 166,
+            "9": 81
+          }
+        }
+      ],
+      "initial_evaluation": {
+        "global_test_loss": 2.3033340827941893,
+        "global_test_accuracy": 0.0997
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "weighted_mean_client_training_loss": 0.9533383289217949,
+          "global_test_loss": 0.7603197447776795,
+          "global_test_accuracy": 0.7327,
+          "num_clients": 10,
+          "total_samples": 60000
+        },
+        {
+          "round": 2,
+          "weighted_mean_client_training_loss": 0.4964971139969925,
+          "global_test_loss": 0.5339850029468537,
+          "global_test_accuracy": 0.8003,
+          "num_clients": 10,
+          "total_samples": 60000
+        },
+        {
+          "round": 3,
+          "weighted_mean_client_training_loss": 0.4116957490692536,
+          "global_test_loss": 0.4735515175819397,
+          "global_test_accuracy": 0.8268,
+          "num_clients": 10,
+          "total_samples": 60000
+        }
+      ]
+    },
+    {
+      "alpha": 0.3,
+      "metadata": {
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0
+        },
+        "device": "cuda",
+        "dataset": "Fashion-MNIST",
+        "training_samples": 60000,
+        "test_samples": 10000,
+        "torch_version": "2.14.0+cu130",
+        "cuda_runtime": "13.0",
+        "gpu_name": "NVIDIA GeForce RTX 5060 Laptop GPU",
+        "client_seed_rule": "seed + round_number * num_clients + client_id (rounds start at 1)",
+        "optimizer_state": "fresh per client per round",
+        "participation": "all clients"
+      },
+      "sources": [
+        {
+          "file": "partition_alpha_0.3.json",
+          "sha256": "ec3a724180d15737632f54260e9fe84cd4ea77a85703ef914bc2d20cbcca6432"
+        },
+        {
+          "file": "fedavg_alpha_0.3.json",
+          "sha256": "abab929ce2277273a2de05dec65e026523bf7d3d0acb3a159711fa8a9de19485"
+        }
+      ],
+      "clients": [
+        {
+          "client_id": 0,
+          "num_samples": 5487,
+          "class_counts": {
+            "0": 270,
+            "1": 72,
+            "2": 10,
+            "3": 53,
+            "4": 466,
+            "5": 1210,
+            "6": 239,
+            "7": 2661,
+            "8": 3,
+            "9": 503
+          }
+        },
+        {
+          "client_id": 1,
+          "num_samples": 5069,
+          "class_counts": {
+            "0": 2683,
+            "1": 326,
+            "2": 68,
+            "3": 198,
+            "4": 121,
+            "5": 61,
+            "6": 11,
+            "7": 46,
+            "8": 541,
+            "9": 1014
+          }
+        },
+        {
+          "client_id": 2,
+          "num_samples": 10783,
+          "class_counts": {
+            "0": 87,
+            "1": 223,
+            "2": 217,
+            "3": 304,
+            "4": 1111,
+            "5": 2673,
+            "6": 0,
+            "7": 0,
+            "8": 2868,
+            "9": 3300
+          }
+        },
+        {
+          "client_id": 3,
+          "num_samples": 2017,
+          "class_counts": {
+            "0": 0,
+            "1": 2,
+            "2": 128,
+            "3": 97,
+            "4": 297,
+            "5": 395,
+            "6": 167,
+            "7": 748,
+            "8": 4,
+            "9": 179
+          }
+        },
+        {
+          "client_id": 4,
+          "num_samples": 4509,
+          "class_counts": {
+            "0": 144,
+            "1": 8,
+            "2": 924,
+            "3": 557,
+            "4": 1325,
+            "5": 1016,
+            "6": 6,
+            "7": 118,
+            "8": 410,
+            "9": 1
+          }
+        },
+        {
+          "client_id": 5,
+          "num_samples": 7073,
+          "class_counts": {
+            "0": 1349,
+            "1": 3,
+            "2": 404,
+            "3": 1266,
+            "4": 136,
+            "5": 246,
+            "6": 1116,
+            "7": 2018,
+            "8": 256,
+            "9": 279
+          }
+        },
+        {
+          "client_id": 6,
+          "num_samples": 5804,
+          "class_counts": {
+            "0": 1218,
+            "1": 1100,
+            "2": 14,
+            "3": 401,
+            "4": 1,
+            "5": 93,
+            "6": 1066,
+            "7": 59,
+            "8": 1850,
+            "9": 2
+          }
+        },
+        {
+          "client_id": 7,
+          "num_samples": 7202,
+          "class_counts": {
+            "0": 29,
+            "1": 0,
+            "2": 3936,
+            "3": 2664,
+            "4": 337,
+            "5": 39,
+            "6": 133,
+            "7": 35,
+            "8": 16,
+            "9": 13
+          }
+        },
+        {
+          "client_id": 8,
+          "num_samples": 6960,
+          "class_counts": {
+            "0": 67,
+            "1": 2788,
+            "2": 299,
+            "3": 130,
+            "4": 2097,
+            "5": 76,
+            "6": 525,
+            "7": 315,
+            "8": 8,
+            "9": 655
+          }
+        },
+        {
+          "client_id": 9,
+          "num_samples": 5096,
+          "class_counts": {
+            "0": 153,
+            "1": 1478,
+            "2": 0,
+            "3": 330,
+            "4": 109,
+            "5": 191,
+            "6": 2737,
+            "7": 0,
+            "8": 44,
+            "9": 54
+          }
+        }
+      ],
+      "initial_evaluation": {
+        "global_test_loss": 2.3033340827941893,
+        "global_test_accuracy": 0.0997
+      },
+      "rounds": [
+        {
+          "round": 1,
+          "weighted_mean_client_training_loss": 0.748029304613173,
+          "global_test_loss": 1.1799071323394776,
+          "global_test_accuracy": 0.5461,
+          "num_clients": 10,
+          "total_samples": 60000
+        },
+        {
+          "round": 2,
+          "weighted_mean_client_training_loss": 0.43546226672522415,
+          "global_test_loss": 0.6519297336101532,
+          "global_test_accuracy": 0.7664,
+          "num_clients": 10,
+          "total_samples": 60000
+        },
+        {
+          "round": 3,
+          "weighted_mean_client_training_loss": 0.3404225792953667,
+          "global_test_loss": 0.6120484283924102,
+          "global_test_accuracy": 0.7703,
+          "num_clients": 10,
+          "total_samples": 60000
+        }
+      ]
+    }
+  ]
+}
