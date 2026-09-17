@@ -1,0 +1,15 @@
+seed: 42
+num_clients: 10
+alpha: 0.3
+min_samples_per_client: 1
+data_dir: data
+batch_size: 64
+local_epochs: 1
+rounds: 3
+optimizer: SGD
+learning_rate: 0.01
+momentum: 0.9
+device: auto
+num_workers: 0
+topology: ring_degree_4
+small_world_rewire_probability: 0.2
