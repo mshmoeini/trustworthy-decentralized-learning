@@ -4,7 +4,7 @@ This project develops a reproducible PyTorch framework for studying how heteroge
 
 ## Current scope
 
-The current codebase provides a small Fashion-MNIST convolutional model, a reproducible centralized training baseline, and reproducible Dirichlet client partitioning of training data. Federated and decentralized learning, Byzantine behavior, and robust peer selection are outside the current scope.
+The current codebase provides a small Fashion-MNIST convolutional model, a reproducible centralized training baseline, reproducible Dirichlet client partitioning, and a sequential centralized FedAvg baseline. Decentralized learning, Byzantine behavior, and robust peer selection are outside the current scope.
 
 > **Active development:** This repository is being built milestone by milestone and does not yet contain final research results.
 
@@ -50,3 +50,15 @@ python -m tdl.data.inspect_partition --config configs/partition.yaml
 The default is 10 clients, seed 42, alpha 0.3, and at least one sample per client. The command prints per-client sample and class counts, verifies exact coverage and repeatability, and writes `results/partition_summary.json`. Use `--alpha` and `--output` to inspect other concentrations and retain separate local JSON summaries. Generated results and datasets remain ignored by Git.
 
 Each class receives an independent symmetric Dirichlet allocation. Larger alpha tends toward similar class allocations; smaller alpha favors label skew. Client sizes are not fixed. Allocations that violate the minimum are rejected using the same seeded RNG, with a default limit of 1000 attempts and a clear error if none succeeds. The JSON also reports mean label total variation from the global distribution (smaller values indicate more similar label proportions).
+
+## Run the FedAvg baseline
+
+```bash
+python -m tdl.federated.fedavg --config configs/fedavg.yaml
+```
+
+The default simulates 10 clients sequentially for three rounds with one local epoch per round, seed 42, and alpha 0.3. Each client trains a separate copy of the same global model; the server averages model states using partition sample counts. Every client participates, and a fresh SGD optimizer is used for each client in each round. `device: auto` selects CUDA when available.
+
+The runner evaluates the initial model and the global model after every round, prints weighted client loss and global test metrics, and saves configuration, device metadata, partition counts, and round metrics to ignored `results/fedavg_summary.json`. Override `--alpha` and `--output` for separate development checks.
+
+Client training and independent DataLoader generators use `seed + round_number * num_clients + client_id`, with rounds starting at 1. Initialization uses the main seed, and partitioning uses its own seeded NumPy RNG. The existing seed helper enables deterministic cuDNN behavior; reproducibility across different hardware or library versions is not guaranteed. This is a centralized federated comparison baseline, with no peer-to-peer communication or attacks.

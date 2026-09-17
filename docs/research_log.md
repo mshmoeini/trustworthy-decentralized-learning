@@ -69,3 +69,42 @@ Total variation is half the sum of absolute differences between each client's la
 For every alpha, exact coverage and no overlap were checked by comparing all sorted assigned indices to `0..59999`; assigned totals were 60,000, every client met the minimum, and regenerating with the same seed gave identical index lists. Per-client counts and proportions are saved in the ignored local JSON files above. The full test suite passed (39 tests), including synthetic tests of retries and inspection output that do not download data.
 
 These are development validation checks, not final scientific experiments. The existing model, centralized training logic, and CUDA configuration remain unchanged. Milestone 3 has not been started.
+
+## Milestone 3: centralized FedAvg development baseline
+
+**Date:** 2026-09-17
+
+**Purpose:** Establish a conventional centralized federated comparison baseline under the same Dirichlet partitions before decentralized learning is introduced.
+
+Every round gives all clients independent deep copies of the same global model. Each client trains only on its own partition using the existing SGD and epoch-training helpers. The server computes `sum_k (n_k / N) * w_k`, where `n_k` is the client's partition size and `N` is the sum across participating clients. Floating model states are averaged without mutating client inputs; non-floating buffers must agree and are cloned, otherwise aggregation raises an error. Collected client states are kept on CPU; training is sequential on the configured device.
+
+The optimizer is fresh per client per round, preserving momentum only within that local training call. Client training and separate loader generators use `seed + round_number * num_clients + client_id` (one-based rounds). Initialization uses the main seed and partitioning its own local NumPy RNG. Existing cuDNN deterministic settings are retained; cross-hardware or cross-version reproducibility is not guaranteed.
+
+Checks used seed 42, 10 clients, all 60,000 training and 10,000 test samples, one local epoch, three communication rounds, batch size 64, SGD with learning rate 0.01 and momentum 0.9, and `device: auto` resolving to CUDA on the NVIDIA GeForce RTX 5060 Laptop GPU (PyTorch 2.14.0+cu130, CUDA runtime 13.0). Hyperparameters and the dataset were not reduced or tuned between checks.
+
+```bash
+python -m tdl.federated.fedavg --config configs/fedavg.yaml --alpha 10.0 --output results/fedavg_alpha_10.json
+python -m tdl.federated.fedavg --config configs/fedavg.yaml --alpha 1.0 --output results/fedavg_alpha_1.json
+python -m tdl.federated.fedavg --config configs/fedavg.yaml --output results/fedavg_alpha_0.3.json
+python -m tdl.federated.fedavg --config configs/fedavg.yaml --output results/fedavg_alpha_0.3_repeat.json
+```
+
+All three initial evaluations had test loss 2.3033 and accuracy 9.97%. Actual round metrics were:
+
+| Alpha | Round | Weighted client training loss | Global test loss | Global test accuracy | Clients | Training samples |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 10.0 | 1 | 1.1515 | 0.6485 | 74.86% | 10 | 60,000 |
+| 10.0 | 2 | 0.5984 | 0.5131 | 81.09% | 10 | 60,000 |
+| 10.0 | 3 | 0.5094 | 0.4631 | 82.86% | 10 | 60,000 |
+| 1.0 | 1 | 0.9533 | 0.7603 | 73.27% | 10 | 60,000 |
+| 1.0 | 2 | 0.4965 | 0.5340 | 80.03% | 10 | 60,000 |
+| 1.0 | 3 | 0.4117 | 0.4736 | 82.68% | 10 | 60,000 |
+| 0.3 | 1 | 0.7480 | 1.1799 | 54.61% | 10 | 60,000 |
+| 0.3 | 2 | 0.4355 | 0.6519 | 76.64% | 10 | 60,000 |
+| 0.3 | 3 | 0.3404 | 0.6120 | 77.03% | 10 | 60,000 |
+
+All clients participated every round with unequal sizes, and the partitions covered every training index exactly once with at least one sample per client. Global accuracy improved across these early rounds for every alpha. Alpha 0.3 completed successfully but had lower global accuracy in this short check; lower local training loss does not by itself imply better global evaluation. The repeated default alpha 0.3 run produced an identical JSON report, including unrounded metrics, on this environment. Generated reports remain local under ignored `results/`.
+
+The full test suite passed (62 tests). Added synthetic tests cover weighted aggregation, input immutability, compatibility and count validation, safe integer buffers, parameter changes during local training, identical client initial weights, global model isolation, tiny full rounds, runner metadata, and reproducibility. The existing centralized training implementation and CNN were not modified.
+
+These are development validation runs, not final scientific results. No decentralized communication, Byzantine behavior, robust aggregation, or Milestone 4 work was implemented.
