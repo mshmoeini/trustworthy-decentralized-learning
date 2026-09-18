@@ -6,13 +6,13 @@ This project develops a reproducible PyTorch framework for studying how heteroge
 
 - **RQ1:** How does data heterogeneity affect learning quality and inter-node agreement in decentralized learning?
 - **RQ2:** How does communication topology interact with non-IID data under a fixed or comparable communication budget?
-- **Planned:** How do Byzantine participants, robust aggregation, and trust-aware peer selection affect robustness?
+- **Development validation:** How do Byzantine outgoing updates affect honest learning and dynamic peer selection? Robust aggregation and trust-aware peer selection remain planned.
 
-The current development variables are Dirichlet alpha and communication topology. Equal-budget degree-4 graphs are compared alongside lower- and higher-budget references.
+The current development variables are Dirichlet alpha, communication topology, and Byzantine outgoing updates. Equal-budget degree-4 graphs are compared alongside lower- and higher-budget references.
 
 ## Current scope
 
-Implemented: a centralized Fashion-MNIST CNN baseline, reproducible Dirichlet non-IID partitions, centralized FedAvg, synchronous decentralized learning across five static topologies, EL-Local, and the Morph dynamic peer-selection core. The decentralized runners include node-level evaluation, parameter disagreement, and communication metadata. [Morph semantics and development configuration](docs/morph.md) document the paper/code differences. Byzantine attacks, robust aggregation, trust-aware peer selection, and final multi-seed scientific conclusions remain outside current scope.
+Implemented: a centralized Fashion-MNIST CNN baseline, reproducible Dirichlet non-IID partitions, centralized FedAvg, synchronous decentralized learning across five static topologies, EL-Local, the Morph dynamic peer-selection core, and outgoing-update Byzantine attack simulation. The decentralized runners include node-level evaluation, parameter disagreement, and communication metadata. [Morph semantics and development configuration](docs/morph.md) document the paper/code differences. Robust aggregation, trust-aware peer selection, and final scientific conclusions remain outside current scope.
 
 > **Active development:** This repository is being built milestone by milestone and does not yet contain final research results.
 
@@ -178,6 +178,46 @@ significance is claimed. Both used uniform aggregation and 40 measured model
 deliveries per round over ten rounds at alpha=0.3. Early guided slots were entirely
 fallback-driven in rounds 1–2. Morph retained four incoming peers but was not
 strongly connected in 10 of 50 round graphs; all remained weakly connected.
+
+### Byzantine attack development
+
+Attacks run after local training and before communication. With local update
+`delta = theta_local - theta_start`, sign flip sends `theta_start - lambda * delta`
+and scaling sends `theta_start + lambda * delta`. Only the outgoing payload is
+modified; local training snapshots and each node's own aggregation contribution
+remain unchanged. Honest participants can subsequently be affected by receiving
+poisoned models. No defenses are implemented.
+
+The current five-seed development validation uses Fashion-MNIST, alpha=0.3,
+10 nodes, 10 rounds, one local epoch, one Byzantine node (0), uniform aggregation,
+and 40 model deliveries per round. Seeds are 42–46; sign flip uses lambda=1 and
+scaling lambda=5. Final honest-mean attack-minus-clean changes (mean ± sample
+standard deviation) are −1.686 ± 1.156 pp / −2.174 ± 1.996 pp for EL-Local k4
+and −2.149 ± 1.489 pp / −6.426 ± 4.298 pp for Morph code-faithful k4.
+
+![Paired honest mean accuracy changes with across-seed sample standard deviations](docs/figures/byzantine_attack_damage.png)
+
+Five seeds, alpha=0.3, 10 nodes, 10 rounds, one Byzantine node; development
+validation. Error bars are sample standard deviations, not confidence intervals.
+[Vector version](docs/figures/byzantine_attack_damage.svg).
+
+In this validation, scaling increased the frequency with which Morph selected
+the Byzantine participant and was associated with larger honest-node accuracy
+degradation than the same attack under EL-Local. Morph attacker-origin delivery
+share averaged 8.40% clean, 10.10% sign flip, and 18.45% scaling; guided selection
+increases averaged +6.8 ± 3.77 and +40.2 ± 9.52 selections per run, respectively.
+Selection amplification, payload severity, and learning damage are distinct;
+these observations establish neither causality nor statistical significance.
+
+![Morph attacker-origin delivery shares across clean and attacked runs](docs/figures/byzantine_morph_selection_amplification.png)
+
+The same five-seed development setup; points identify individual seeds and error
+bars show sample standard deviation. Clean origin deliveries are not poisoned.
+[Vector version](docs/figures/byzantine_morph_selection_amplification.svg).
+The [research log](docs/research_log.md) records pairing, connectivity, and
+descriptive correlation caveats. Regenerate both figures without training or raw
+reports using `python scripts/plot_byzantine_checks.py`, which reads the compact
+[figure data](docs/figure_data/byzantine_validation.json).
 
 ## GPU setup
 

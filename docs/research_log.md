@@ -434,3 +434,169 @@ regression tests. The snapshot records its committed-source hashes separately
 from original runtime-byte hashes, preserving line-ending provenance. The
 documentation commit publishes compact figure values and assets; raw reports,
 caches and temporary files are excluded.
+
+
+## 2026-09-18 — Byzantine outgoing-update attack milestone
+
+This milestone implements attacks and observational reporting only. No trust,
+validators, clipping, robust aggregation, anomaly detection, or attack-aware peer
+selection is added. The experiment base is
+`cb71407cc388f1838a14638441ab0f3abd85a935`; runs preceded the attack implementation
+commit. The compact Byzantine figure snapshot preserves original runtime hashes
+separately from committed Git blob hashes.
+
+### Architecture and update definitions
+
+Capture the configured attacker's round-start state before normal local training.
+Train every node normally and freeze all post-training states before transforming
+outgoing payloads. For `delta = theta_local - theta_start`:
+
+- Sign flip sends `theta_start - lambda * delta` (validated lambda=1).
+- Update scaling sends `theta_start + lambda * delta` (validated lambda=5).
+  The configuration/CLI name is `scaling`; summary labels use `update_scaling`.
+
+Only outgoing payloads are changed. Inputs and returned tensors have independent
+ownership; nonfloating buffers keep their local values. Aggregation uses the
+unchanged local post-training state for self and outgoing payloads for incoming
+senders. All next-round aggregates are computed before any model is installed.
+The same payload is sent to every requesting receiver; this is neither
+equivocation nor data poisoning or metadata forgery. Honest models can be affected
+by later aggregation of poisoned incoming models.
+
+Morph scores its honest current local state against previously received payloads
+and cached/indirect estimates; the current payload cannot influence current-round
+selection before it is received. Candidate diagnostics observe existing local
+scores without rescoring, consuming RNG, or using attacker IDs in the selection
+algorithm. Rank bounds retain ties, with lower similarity ranked first. Initial
+fallback/indirect scores are distinguished from fresh or cached direct scores.
+First/top-2/top-3 fractions require rank_max <= k for guaranteed membership; possible
+fractions use rank_min <= k. All fractions use all nine honest receivers, with
+unknown candidates unranked. A fallback tie does not demonstrate measured diversity.
+
+Configuration validation rejects invalid identities, strengths and incompatible
+states; overflow is reported without clipping. The dedicated runner records
+configuration, partition, source hashes, initial evaluation, learning curves,
+actual traffic, poisoned deliveries, local ranks, and paired clean differences.
+It requires an exact completed clean control for the CLI, checks all non-attack
+configuration fields and shared training/model/data sources, and refuses to
+overwrite reports. No-attack equivalence, snapshot timing, honest self state,
+payload ownership, invalid inputs, ranks and deterministic matched-control runs
+are covered by the 25 added tests (194 total).
+
+### Single-seed development and five-seed validation
+
+Seed 42 development used ten rounds at alpha 0.3. Honest mean accuracy for Morph
+was 79.471% clean, 75.870% sign flip and 79.427% scaling; attacker-origin deliveries
+were 31, 37 and 78 out of 400. EL honest means were 82.281%, 79.814% and 81.399%,
+with 40 origin deliveries in each case. This illustrates why attacker selection
+frequency and learning damage must be evaluated separately: seed 42 scaling nearly
+doubled Morph's attacker-origin share while final honest mean damage was 0.044 pp.
+
+The primary matrix is Fashion-MNIST, ten nodes, alpha 0.3, ten rounds, one local
+epoch, seeds 42–46, fixed Byzantine node 0, EL-Local k=4 uniform and Morph
+code-faithful k=4 uniform. SGD learning rate 0.01, momentum 0.9 and batch size 64,
+as well as all data/model settings, remain unchanged. Morph beta 500, refresh 1,
+one random and three guided slots, uncapped outgoing service remain unchanged.
+Twenty-one new runs comprise sixteen seed 43–46 attack cases and five clean Morph
+replays for candidate diagnostics. Five EL clean and four seed 42 attack reports
+were reused after validation. Every clean Morph replay exactly matches the
+original round metrics, node evaluations and topology.
+
+Honest-only metrics exclude node 0 in both clean and attack runs; each attack is
+paired with its own algorithm/seed clean control. Global mean/worst/spread, mean
+test loss, RMS disagreement and attacker accuracy are retained separately.
+The following final-round changes are **attack minus clean**, in percentage
+points, with across-seed **sample** standard deviation (n-1, n=5):
+
+| Algorithm / attack | Honest mean change | Honest worst change | Honest std change |
+| --- | ---: | ---: | ---: |
+| EL sign flip | −1.686 ± 1.156 | −2.176 ± 1.041 | +0.285 ± 0.501 |
+| EL scaling | −2.174 ± 1.996 | −3.012 ± 4.176 | +1.091 ± 1.346 |
+| Morph sign flip | −2.149 ± 1.489 | −2.116 ± 2.472 | −0.000126 ± 0.546 |
+| Morph scaling | −6.426 ± 4.298 | −8.656 ± 8.838 | +1.241 ± 2.678 |
+
+Morph scaling honest-mean changes by seed 42–46 are −0.044, −8.053, −4.100,
+−9.856 and −10.078 pp; effects vary substantially. Scaling seed 46 worst-node
+change is −23.14 pp. EL scaling slightly improves honest mean in seed 43 (+0.24 pp)
+and worst accuracy in seed 42 (+3.71 pp). Final disagreement rises in every attacked
+run: mean increases EL sign flip 0.00003834, EL scaling 0.00034610, Morph sign
+flip 0.00006848 and Morph scaling 0.00029196. Scaling curves oscillate markedly,
+including Morph seed 44 honest accuracy 51.891% at round 9 and 79.040% at round 10.
+
+### Selection amplification and poisoned deliveries
+
+Attacker-origin count includes clean node 0 sends; poisoned-delivery count is zero
+for clean and equals attacker-origin count for the validated attacks. There are
+400 model deliveries per run. EL remains 40/400 (10%) and its graphs match clean
+for every seed. Morph origin shares average 8.40% clean, 10.10% sign flip and 18.45%
+scaling (sample std 2.97, 3.05, 1.01 percentage points, respectively).
+
+| Seed | Morph clean origin count | Sign flip count / poisoned share | Scaling count / poisoned share | Guided amplification sign / scaling |
+| --- | ---: | ---: | ---: | ---: |
+| 42 | 31 | 37 / 9.25% | 78 / 19.50% | +6 / +47 |
+| 43 | 21 | 32 / 8.00% | 68 / 17.00% | +11 / +47 |
+| 44 | 53 | 62 / 15.50% | 77 / 19.25% | +9 / +24 |
+| 45 | 34 | 35 / 8.75% | 74 / 18.50% | +1 / +40 |
+| 46 | 29 | 36 / 9.00% | 72 / 18.00% | +7 / +43 |
+
+All per-seed origin-count increases are guided; random attacker deliveries match
+clean. Guided proposals equal accepted selections in these uncapped cases.
+Mean guided amplification is +6.8 ± 3.77 sign flip and +40.2 ± 9.52 scaling.
+Mean attacker outgoing degree across seeds is 3.36 clean, 4.04 sign flip and 7.38
+scaling; incoming degree remains 4 in every round. Scaling ranks the attacker
+uniquely first for all nine honest receivers in seed 42 rounds 7, 8, 10; seed 44
+rounds 6–10; seed 45 rounds 7, 9; seed 46 round 10; none for seed 43. Sign flip reaches
+this condition only in seed 44 rounds 7–8. Clean never reaches it. Rank membership
+need not coincide with acceptance due to random reservations and candidate scores.
+
+### Descriptive association and caveats
+
+RQ-A honest learning damage, RQ-B selection amplification and RQ-C association are
+evaluated separately. Positive damage here means clean minus attacked accuracy;
+selection amplification means attacked minus clean origin-delivery count.
+Pearson / Spearman diagnostics are:
+
+| Morph group | Honest mean damage | Honest worst damage |
+| --- | ---: | ---: |
+| Sign flip, n=5 | −0.352 / −0.500 | +0.048 / +0.200 |
+| Scaling, n=5 | +0.091 / −0.205 | +0.325 / +0.154 |
+| Pooled attacks, n=10 | +0.567 / +0.280 | +0.551 / +0.535 |
+
+Clean zero anchors are excluded. The pooled ten runs repeat the same five seeds
+and can be confounded by attack type; they are not ten independent seeds.
+Within-attack associations are weak or inconsistent. No p-values, statistical
+significance, causal effect, convergence or general robustness/vulnerability claim
+is made. Selection amplification, attack payload severity, and learning damage
+are distinct phenomena. Sign flip reverses the update; scaling enlarges it in its
+original direction. In the current five-seed development validation, scaling
+consistently increases Morph attacker selection and is associated with larger
+average honest-node degradation than under EL. This does not imply that scaling
+always breaks Morph or that selection alone causes damage. No strength sweep was
+run and no monotonic strength-response claim is supported.
+
+All 300 round cases have 40 directed full-model transmissions (400 per run),
+excluding metadata/negotiation. No runtime or nonfinite-metric failure, declined
+request or underfilled Morph receiver appeared. All graphs are weakly connected;
+EL remains strongly connected. Morph lacks strong connectivity in=10/50 clean,
+9/50 sign-flip and 11/50 scaling round graphs. These are observed topology
+properties, retained without repairs. Outgoing imbalance and learning oscillations
+are reported separately from execution failures.
+
+### Publication and reproducibility
+
+The compact `docs/figure_data/byzantine_validation.json` publishes only per-seed
+values needed for two figures plus setup/provenance. Raw learning curves, ranks,
+reports, configurations, logs and all 76 multi-seed artifacts remain ignored.
+`python scripts/plot_byzantine_checks.py` regenerates both PNG/SVG pairs from
+versioned data without training or reading raw results. The damage figure uses
+paired honest-mean changes, a visible zero baseline and sample-standard-deviation
+error bars. The selection figure uses attacker-origin shares, individual seed
+points and sample-standard-deviation bars; clean sends are not labelled poisoned.
+Both carry explicit five-seed development captions and no significance/causality
+claims. Tests pass 194 before milestone commits; final tests and figure
+reproducibility are checked again before pushing only develop.
+
+Implementation commit `0dfa83701e03e8cce828f7e97b1edce3a7006b59` contains only attack code, configurations,
+communication hooks and tests. Publication checks passed 194 tests and both
+PNG/SVG pairs reproduced byte-for-byte from the compact snapshot. The separate
+documentation commit publishes these figures and notes; raw reports are excluded.

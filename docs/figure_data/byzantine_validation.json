@@ -1,0 +1,141 @@
+{
+  "setup": {
+    "dataset": "Fashion-MNIST",
+    "alpha": 0.3,
+    "nodes": 10,
+    "rounds": 10,
+    "local_epochs": 1,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "byzantine_nodes": [
+      0
+    ],
+    "algorithms": [
+      "EL-Local k4 uniform",
+      "Morph code-faithful k4"
+    ],
+    "attacks": {
+      "sign_flip": 1.0,
+      "update_scaling": 5.0
+    },
+    "actual_deliveries_per_round": 40,
+    "actual_deliveries_per_run": 400
+  },
+  "verification_date": "2026-09-18",
+  "accuracy_change_units": "percentage points, attack minus matching clean final accuracy",
+  "error_bars": "Across-seed sample standard deviation (n-1), five seeds; not confidence intervals",
+  "interpretation": "Development validation; no significance or causal claim. Clean origin deliveries are not poisoned.",
+  "honest_mean_accuracy_change_pp": [
+    {
+      "algorithm": "el",
+      "attack": "sign_flip",
+      "label": "EL-Local / Sign flip",
+      "per_seed": [
+        -2.4666666666666615,
+        -1.2533333333333285,
+        -3.117777777777786,
+        -1.4699999999999935,
+        -0.11999999999999789
+      ]
+    },
+    {
+      "algorithm": "el",
+      "attack": "update_scaling",
+      "label": "EL-Local / Scaling",
+      "per_seed": [
+        -0.8822222222222176,
+        0.23999999999999577,
+        -3.286666666666671,
+        -2.0877777777777773,
+        -4.855555555555558
+      ]
+    },
+    {
+      "algorithm": "morph",
+      "attack": "sign_flip",
+      "label": "Morph / Sign flip",
+      "per_seed": [
+        -3.6011111111111105,
+        -0.26000000000000467,
+        -3.48222222222222,
+        -2.4088888888888937,
+        -0.9911111111111093
+      ]
+    },
+    {
+      "algorithm": "morph",
+      "attack": "update_scaling",
+      "label": "Morph / Scaling",
+      "per_seed": [
+        -0.04444444444444695,
+        -8.053333333333335,
+        -4.100000000000003,
+        -9.855555555555561,
+        -10.077777777777774
+      ]
+    }
+  ],
+  "morph_attacker_origin_delivery_share_percent": [
+    {
+      "attack": "clean",
+      "label": "Clean",
+      "per_seed": [
+        7.75,
+        5.25,
+        13.25,
+        8.5,
+        7.249999999999999
+      ]
+    },
+    {
+      "attack": "sign_flip",
+      "label": "Sign flip (lambda=1)",
+      "per_seed": [
+        9.25,
+        8.0,
+        15.5,
+        8.75,
+        9.0
+      ]
+    },
+    {
+      "attack": "update_scaling",
+      "label": "Scaling (lambda=5)",
+      "per_seed": [
+        19.5,
+        17.0,
+        19.25,
+        18.5,
+        18.0
+      ]
+    }
+  ],
+  "provenance": {
+    "base_commit": "cb71407cc388f1838a14638441ab0f3abd85a935",
+    "summary_sha256": "feb0fdaf2f15dc5892f4b2ab3b82fbf825d21f591ad9c7d59106cb96a3cc74b8",
+    "runtime_source_sha256": {
+      "src/tdl/byzantine/__init__.py": "f684b13635444b42f0183a158d2ca9979c78d2b06ba216da691c7d062136ba40",
+      "src/tdl/byzantine/attacks.py": "840b4a147365343c3a42fda551f9e1a573225f041438bf708e5ce57c6241f185",
+      "src/tdl/byzantine/diagnostics.py": "dfe9c771c0cc1512144775347de01a00fa9c2b1aad23476c290ecc3eb257593e",
+      "src/tdl/byzantine/runner.py": "16f9cae43b3c35c3838b6587148beb6c3268cb6af779cfd4b606139eddf60c8e",
+      "src/tdl/decentralized/epidemic.py": "2a81959b73643924d3f6ae3f8c64f639bba3bc617d3d158a9234eafa345db804",
+      "src/tdl/decentralized/morph.py": "adc634b38be5eaee26bb0f258d070a8af46a59041be72bfc8059f3db9ee79831"
+    },
+    "note": "Runs preceded the implementation commit; runtime hashes use original working-file bytes. Raw reports remain ignored.",
+    "implementation_commit": "0dfa83701e03e8cce828f7e97b1edce3a7006b59",
+    "committed_source_sha256": {
+      "src/tdl/byzantine/__init__.py": "f684b13635444b42f0183a158d2ca9979c78d2b06ba216da691c7d062136ba40",
+      "src/tdl/byzantine/attacks.py": "840b4a147365343c3a42fda551f9e1a573225f041438bf708e5ce57c6241f185",
+      "src/tdl/byzantine/diagnostics.py": "dfe9c771c0cc1512144775347de01a00fa9c2b1aad23476c290ecc3eb257593e",
+      "src/tdl/byzantine/runner.py": "16f9cae43b3c35c3838b6587148beb6c3268cb6af779cfd4b606139eddf60c8e",
+      "src/tdl/decentralized/epidemic.py": "7bd53fc25afd79b6cd52afb2c90c0c1bab85702d97f56994795f7c406beb08a0",
+      "src/tdl/decentralized/morph.py": "aa78af52b97d624534504230dd22cd8502fd7bc35a21a6c861adc22c95365698"
+    },
+    "committed_hash_basis": "Git blob bytes; runtime hashes retain pre-commit working-file bytes and line-ending provenance"
+  }
+}
