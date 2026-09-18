@@ -12,7 +12,7 @@ The current development variables are Dirichlet alpha and communication topology
 
 ## Current scope
 
-Implemented: a centralized Fashion-MNIST CNN baseline, reproducible Dirichlet non-IID partitions, centralized FedAvg, and synchronous decentralized learning across five communication topologies. The decentralized baseline includes node-level evaluation, parameter disagreement, and communication-cost metadata. Byzantine attacks, robust aggregation, trust-aware peer selection, and final multi-seed scientific conclusions remain outside current scope.
+Implemented: a centralized Fashion-MNIST CNN baseline, reproducible Dirichlet non-IID partitions, centralized FedAvg, synchronous decentralized learning across five static topologies, EL-Local, and the Morph dynamic peer-selection core. The decentralized runners include node-level evaluation, parameter disagreement, and communication metadata. [Morph semantics and development configuration](docs/morph.md) document the paper/code differences. Byzantine attacks, robust aggregation, trust-aware peer selection, and final multi-seed scientific conclusions remain outside current scope.
 
 > **Active development:** This repository is being built milestone by milestone and does not yet contain final research results.
 
@@ -139,6 +139,45 @@ Create a Python 3.11 or newer virtual environment, then install the project and 
 ```bash
 python -m pip install -e ".[dev]"
 ```
+
+### Dynamic random communication: Epidemic Learning
+
+EL-Local independently samples `k` distinct outgoing peers per node each round,
+forming a directed random k-out graph with variable incoming degree. Nodes uniformly
+average their locally trained model and received frozen models; zero incoming
+updates retain the locally trained model. A sample-weighted control uses the same
+sampled communication graphs.
+
+![Epidemic matched-budget development accuracy](docs/figures/epidemic_matched_budget_accuracy.png)
+
+Ten nodes, seed 42, three rounds: development checks only, with no confidence
+intervals or significance claims. Sparse methods use 40 model transmissions per
+round; Fully Connected uses 90. EL-Local changes both topology dynamics and the
+aggregation rule relative to static baselines. The sample-weighted EL control
+helps separate those effects; these checks do not establish EL superiority.
+
+### Guided dynamic communication: Morph
+
+The baseline progression is static communication → Epidemic random dynamic
+communication → Morph guided dynamic communication. Morph selects peers through
+local discovery, without a central peer directory. The primary
+`morph_code_faithful` mode follows the released request-serving semantics: each
+receiver requests k models, and senders serve all requesters without an outgoing
+cap. The separate experimental `morph_paper_capped` mode retains capped
+negotiation and its known 39-edge failure despite a feasible 40-edge assignment.
+[Source reconciliation](docs/morph.md) explains the distinction and the requested
+three-guided/one-random selection adaptation from the released one-swap code.
+
+![Morph versus EL-Local five-seed development validation](docs/figures/morph_vs_epidemic_multiseed.png)
+
+In the current five-seed development check, Morph and EL achieved similar mean
+accuracy (81.446% and 81.707%), while Morph showed higher average worst-node
+accuracy (77.538% and 75.552%) and lower node-level variability. Error bars show
+across-seed sample standard deviation, not confidence intervals; no statistical
+significance is claimed. Both used uniform aggregation and 40 measured model
+deliveries per round over ten rounds at alpha=0.3. Early guided slots were entirely
+fallback-driven in rounds 1–2. Morph retained four incoming peers but was not
+strongly connected in 10 of 50 round graphs; all remained weakly connected.
 
 ## GPU setup
 

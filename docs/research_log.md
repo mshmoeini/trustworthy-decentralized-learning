@@ -226,3 +226,211 @@ Documentation validation: all 101 tests passed (6.00 s); all 15 formatted result
 Implementation commit `22aeb9ea560a20454a7bee8e37ecc8b672867d6d` also includes EL-Local: independent directed random k-out sampling from all other nodes, uniform averaging of self plus incoming trained snapshots, and retention of the locally trained model when no external model arrives. A separately labelled sample-count-weighted control uses identical sampled graphs. Static baselines retain sample-count weighting, so comparison with uniform EL changes both topology and weighting. The complete suite passed 128 tests. Development checks use one seed (42), three rounds, and ten Fashion-MNIST nodes; no confidence intervals or statistical significance are claimed, and these are not replications of the paper's 100-node experiments. Raw EL reports remain ignored/local; no Epidemic figures are published at this checkpoint.
 
 Documentation checkpoint validation regenerated all eight PNG/SVG pairs without training. Numerical snapshot values were checked against the pre-commit snapshot and remained unchanged. The topology subtitle describes graph construction, and communication-plot disagreement annotations use scientific notation (zero for Fully Connected).
+
+## Milestone 4.5: Epidemic documentation
+
+**Date:** 2026-09-18
+
+EL-Local provides a dynamic random communication baseline before similarity-guided
+Morph. Paper descriptions of regular versus independently sampled communication
+are ambiguous; Algorithm 1 and the official `EL_Local` implementation resolve this
+project's protocol to directed independent k-out sampling, not a repaired regular
+graph. Each sender samples distinct destinations. Every receiver uniformly averages
+self plus incoming frozen locally trained models. No incoming models means retaining
+its locally trained model. A separate sample-count-weighted control uses identical
+graphs. Zero in-degree is possible and tested, but was not observed in these short runs.
+
+| Method | alpha 10 | alpha 1 | alpha 0.3 |
+| --- | ---: | ---: | ---: |
+| EL-Local uniform k4 | 82.54 | 79.35 | 73.83 |
+| EL sample-weighted control k4 | 82.60 | 79.87 | 71.98 |
+
+At alpha 0.3, uniform EL k3/k4/k7 achieved 70.33/73.83/76.36%, using
+30/40/70 model transmissions per round; Fully Connected achieved 77.03% at 90.
+The matched-budget figure is in the README; the connectivity diagnostic remains
+under `docs/figures`. Both have PNG/SVG exports.
+
+All checks use Fashion-MNIST, ten nodes, seed 42, and three rounds. They are
+development validation, not statistical evidence. Random dynamic topology alone
+has not been shown to improve over static topology: uniform versus weighted EL
+at alpha 0.3 (73.83 versus 71.98%) makes aggregation weighting a meaningful confounder.
+
+`scripts/plot_epidemic_checks.py --archive-results results` verifies the existing
+summary against raw reports and archives unrounded plot data, report hashes,
+configuration, metadata, and committed-source hashes in the existing versioned
+snapshot. Provenance references implementation commit `22aeb9ea560a20454a7bee8e37ecc8b672867d6d`.
+`python scripts/plot_epidemic_checks.py` regenerates from that snapshot without
+training or raw reports. Historical Milestones 1–4 snapshot entries are preserved.
+Raw results remain ignored. Part A changes are local and uncommitted.
+
+Validation before Morph: all 128 tests passed. Both new PNG/SVG pairs were visually
+reviewed and reproduce byte-for-byte through both plotting entrypoints. All eight
+historical figure pairs and all historical snapshot entries remain unchanged.
+
+## Milestone 5A/5B: Morph core and small development check
+
+**Date:** 2026-09-18
+
+Implemented local known-peer views, equal-tensor cosine similarity, five-report
+product-based indirect estimates, seeded softmax sampling, directed request
+negotiation, configurable refresh/capacity/random slots, and uniform synchronous
+snapshot mixing. Exact source reconciliation and deviations are in `docs/morph.md`.
+The official revision is `57d73b921c317b0f0d7d9f4a71a6db8051beaf82`.
+
+The paper and released code differ: the code swaps one incoming peer and accepts
+all requests; the paper describes full selection, outgoing capacity, and random
+exploration. Both selection modes are explicit. The development check uses the
+paper-described resampling/capacity path, with exploration restricted to discovered
+peers. Incoming request identities and frozen peer-list gossip drive discovery;
+there is no global candidate leakage. Random requests share the outgoing cap,
+so accepted random counts can be below the requested one slot per receiver.
+
+Added 32 focused tests covering numerical edges, local-view isolation, one-hop
+gossip, transitive estimation/history, request discovery, probability/beta behavior,
+seed/round reproducibility, incoming/outgoing distinction, capacity displacement,
+deficits, refresh intervals, random/guided/hybrid components, official single swaps,
+uniform averaging with unequal sample counts, snapshot barriers, execution order,
+and a tiny reproducible runner. All 160 tests pass, including the 128 old tests.
+
+After tests passed, ran `python -m tdl.decentralized.morph_runner --config
+configs/morph.yaml --output results/morph_alpha_0.3.json`: Fashion-MNIST, 60,000
+training/10,000 test samples, ten nodes, seed 42, alpha 0.3, one local epoch, three
+rounds, batch 64, SGD lr 0.01/momentum 0.9, CUDA. Morph uses k=4, beta=500,
+Delta_r=1, a degree-4 ring bootstrap, outgoing cap=4, and one random proposal
+plus three guided proposals per receiver. Delta_r=1 deliberately exercises the
+mechanism within three rounds instead of the paper default of five.
+
+| Round | Mean accuracy (%) | Worst (%) | Node std (pp) | Test loss | RMS disagreement | Model transmissions |
+| ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 49.131 | 42.22 | 5.3399 | 1.450702 | 0.00136789 | 40 |
+| 2 | 65.542 | 58.79 | 4.5473 | 0.907971 | 0.00089004 | 40 |
+| 3 | 75.204 | 71.82 | 2.1492 | 0.657383 | 0.00069853 | 40 |
+
+Every node maintained incoming/outgoing degree four; all matches filled k. Known
+peer counts were four initially, then eight/nine/nine after exchanges. Edge churn
+(symmetric difference divided by union) was 0/1/0.974359. Mean selected-peer
+similarity was 0.866679/0.942690/0.984704. Accepted random/guided model edges
+were 10/30, 5/35, 5/35. Requests were 40/45/54, declines or displacements
+0/5/14, and replacements of accepted requests 0/5/6. Model traffic totals 120
+transmissions; metadata and request traffic are excluded from that budget.
+
+An initial check exposed a missing requester-identity discovery path. It was fixed
+and tested before rerunning the development check. The superseded report is
+preserved locally as `results/morph_alpha_0.3_pre_request_discovery_fix.json`; it
+is not the validated result. The final report records source/config SHA-256 hashes
+and checks source stability throughout the run. Its Git HEAD is explicitly the
+base commit, not a claim that the uncommitted Morph implementation is committed.
+
+Validated report SHA-256: `665e94afb9998900c9b99771738d94967427702d1422dddc5c6086a5a21dde50`.
+
+These are single-seed, three-round development mechanics checks, not evidence of
+superiority, convergence, or statistical significance. No other alphas were run.
+No Byzantine or cyclic-search mechanisms were added. Part A and Morph changes
+remain local, with no commit or push. Raw reports remain ignored.
+
+## Milestone 5C: Longer Morph validation and explicit serving modes
+
+**Date:** 2026-09-18
+
+The preceding Milestone 5A/5B entry describes its original checkpoint. Subsequent
+three-round capped development checks also completed at alpha=10 and alpha=1,
+with final mean accuracy 82.706% and 80.086%. Their report SHA-256 values are
+`38f71b1246e69164496f081d670a56f7742833c8c1f67349e6f0bc4b7c393f4d`
+and `07b63b3683fe1b85bf3e04cf892568af7921cfde48ce6212110590d3d3005666`.
+These short checks tested mechanics and did not establish convergence or superiority.
+
+The planned ten-round alpha=0.3 seed-42 capped Morph check stopped at round 6:
+39 edges, receiver8 degree three, all nodes already knowing all nine peers.
+Maximum-flow diagnosis found a feasible 40-edge k-by-k assignment, identifying
+a negotiation limitation rather than missing candidate discovery. The failed
+report remains ignored and unchanged, SHA-256
+`1d24bb9bf886f775ab297d7b6c7a21db86997d1b11ab20b47273515061c38f66`.
+The separate feasibility analysis is SHA-256
+`fdc22aea16d7be02ec95e829ab81145d5156f20993f998877cba858a9d4049a4`.
+`tests/fixtures/morph_capped_round6.json` preserves exact preferences/scores and
+a 40-edge witness; its regression reproduces 39 and requires an error without
+installing an underfilled topology. Maximum flow is diagnostic-only, never an
+algorithmic repair. The negotiation remains unchanged and experimental.
+
+Re-checking paper Algorithms 2–3 against official revision
+`57d73b921c317b0f0d7d9f4a71a6db8051beaf82` confirmed different serving semantics.
+The paper describes outgoing capacity, rejection/cancellation, and replacement
+through college-admission-style negotiation. The released `DissDL` execution
+maintains `wanted_senders`, communicates request intent, and serves all requesting
+receivers without a hard outgoing cap. These paths are now named separately:
+primary `morph_code_faithful` and experimental `morph_paper_capped`.
+
+The primary mode retains local discovery, fixed incoming k, uniform aggregation,
+and frozen synchronous barriers. No global candidate directory or matching solver
+is used. The requested one-random/three-guided `paper_resample` selection remains
+an explicit adaptation from the released one-swap/no-separate-random selection;
+code-faithful refers to request serving, not full TCP execution replication.
+The seven additional mode/regression/end-to-end cases, together with two earlier
+observational similarity tests, bring 160 tests to 169. All preceding tests pass.
+
+The uncapped seed-42 ten-round check completed before launching seeds43–46.
+All paired runs use Fashion-MNIST, 60,000 training/10,000 test samples, ten nodes,
+alpha=0.3, k=4, ten rounds, one local epoch, batch64, SGD lr=0.01/momentum=0.9,
+CUDA on RTX5060 Laptop GPU, beta=500, refresh interval=1, and one random plus
+three guided Morph slots. Model, optimizer, partition and initial evaluation
+controls match between algorithms for each seed. Source stability was checked
+throughout every new run. The complete existing EL seed-42 ten-round report was
+reused after verifying its controlling sources and paired settings; its historical
+Morph module hash refers only to the unchanged observational cosine helper.
+
+| Final metric | Morph mean ± sample std | EL-Local mean ± sample std |
+| --- | ---: | ---: |
+| Mean accuracy (%) | 81.446 ± 2.780 | 81.707 ± 2.717 |
+| Worst-node accuracy (%) | 77.538 ± 2.795 | 75.552 ± 4.758 |
+| Node accuracy std (pp) | 2.020 ± 0.297 | 2.902 ± 1.359 |
+| Mean test loss | 0.483615 ± 0.051852 | 0.500482 ± 0.069249 |
+| RMS disagreement | 0.000489546 ± 0.000058626 | 0.000568021 ± 0.000064597 |
+
+Sample standard deviation uses n−1, n=5; these are not confidence intervals.
+Paired Morph-minus-EL mean-accuracy differences for seeds42–46 are
+−2.913, +0.522, −0.642, +1.062, +0.667 pp; their mean is −0.2608 pp.
+Worst-node differences are +3.300, +3.600, −2.790, −0.770, +6.590 pp,
+averaging +1.9860 pp. Morph did not clearly improve mean accuracy. Higher average
+worst-node accuracy, lower node spread, lower disagreement and slightly lower
+test loss are descriptive observations; no statistical significance is claimed.
+
+Both algorithms delivered exactly 40 models per round, 400 per run, measured from
+directed edges and degree sums without imposing a traffic limiter. Fixed four
+incoming requests at ten receivers imply 40 model deliveries despite uncapped
+outgoing imbalance. Metadata, negotiation and TCP retransmissions are excluded.
+Morph outgoing degrees ranged zero–nine; all incoming degrees remained four.
+Ten of 50 Morph round graphs lacked strong connectivity, all were weakly
+connected. This is an observed topology property, not an underfilled receiver.
+EL graphs remained strongly connected. Learning curves fluctuated, including
+Morph seed42 round9→10 mean accuracy 81.538→79.614% and an EL seed46 round4
+worst-node dip to 53.99% followed by recovery. No nonfinite metric or runtime
+failure appeared in the primary validation.
+
+Guided-source instrumentation remains observational. Rounds1–2 are 100% fallback
+in every seed, so early behavior is not measured-model-dissimilarity selection.
+Round3 pooled proportions are 0.67% fresh direct, 54% cached direct and 45.33%
+indirect. Rounds4–10 use direct values; round10 is 70% fresh and 30% cached.
+Indirect products may depend on fallback-derived intermediary values. Initial
+guided slots, issued guided requests and accepted guided edges agree for this
+uncapped mode; each stage is retained separately in the ignored reports.
+
+The published `morph_multiseed` snapshot stores compact unrounded aggregates,
+per-run report/config hashes, deduplicated runtime source hashes and base commit
+`54fdd31e57b495cb01536a3969858bc06d9678de`. The base is not falsely labelled the
+then-uncommitted Morph implementation. Raw artifacts stay ignored. The primary
+`morph_vs_epidemic_multiseed.png/.svg` figure shows three final metrics with
+across-seed sample-standard-deviation error bars and explicit development labels.
+`python scripts/plot_morph_checks.py` regenerates it without raw reports or training;
+the full development plotting entrypoint includes it and preserves historical data.
+No diagnostic figure was added to keep the README concise. No Byzantine, trust,
+robust aggregation or cyclic peer-search implementation was started.
+
+Publication validation: 169 tests passed (6.46s), all 11 PNG/SVG pairs regenerated
+byte-for-byte from the versioned snapshot, and the Morph standalone plot matched
+the full plotting entrypoint. All preceding raw/support artifacts remained
+unchanged. Implementation commit `fc472674f416532c21710e583e6c977d9be5a14c`
+contains the Morph core, explicit configurations, source reconciliation and
+regression tests. The snapshot records its committed-source hashes separately
+from original runtime-byte hashes, preserving line-ending provenance. The
+documentation commit publishes compact figure values and assets; raw reports,
+caches and temporary files are excluded.

@@ -4509,5 +4509,1140 @@
         "sha256": "bf1d8dcf6d11ae28550a7c17bcbeeca109b30f558af190a1568b982e9a41759d"
       }
     ]
+  },
+  "epidemic": {
+    "source_code": {
+      "commit": "22aeb9ea560a20454a7bee8e37ecc8b672867d6d",
+      "hash_basis": "committed Git blob bytes",
+      "files": [
+        {
+          "file": "src/tdl/decentralized/epidemic.py",
+          "sha256": "09638b25c5d3bfaf4001c611450b5b488f2e4d6967fe235c156f94ad61f67712"
+        },
+        {
+          "file": "src/tdl/decentralized/training.py",
+          "sha256": "daeff89ab08f6427dd8fac9b4ad393987def47e8ec203bc9bb47e065b9680813"
+        },
+        {
+          "file": "configs/epidemic.yaml",
+          "sha256": "81d1a45dbc11e8c46f0f37282d723fa6ac0f8aff70cbbee845cd7ee147661347"
+        },
+        {
+          "file": "scripts/run_epidemic_checks.py",
+          "sha256": "7fa8330a7c62759781878d4d39218f96e2ee2ea8f6b5b86819b703c28cfd275d"
+        }
+      ]
+    },
+    "summary_source": {
+      "file": "epidemic_development_comparison.json",
+      "sha256": "623daba9f4cea2493e3f57e99075b6e6c845bcfbd872b7d8f23f7e25540b7c50"
+    },
+    "rows": [
+      {
+        "algorithm": "ring_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 10.0,
+        "round": 3,
+        "mean_accuracy": 0.82662,
+        "worst_accuracy": 0.8199,
+        "accuracy_std": 0.004373053852858444,
+        "mean_test_loss": 0.47074383643627166,
+        "disagreement": 0.0006090118207109127,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_ring_degree_4_alpha_10.json"
+      },
+      {
+        "algorithm": "random_regular_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 10.0,
+        "round": 3,
+        "mean_accuracy": 0.82719,
+        "worst_accuracy": 0.82,
+        "accuracy_std": 0.003405422147105997,
+        "mean_test_loss": 0.47046497618198396,
+        "disagreement": 0.0005319259161805188,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_random_regular_degree_4_alpha_10.json"
+      },
+      {
+        "algorithm": "small_world_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 10.0,
+        "round": 3,
+        "mean_accuracy": 0.8263199999999999,
+        "worst_accuracy": 0.8198,
+        "accuracy_std": 0.0033887460807797407,
+        "mean_test_loss": 0.470458258471489,
+        "disagreement": 0.0006280862806731863,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_small_world_degree_4_alpha_10.json"
+      },
+      {
+        "algorithm": "fully_connected",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 10.0,
+        "round": 3,
+        "mean_accuracy": 0.8286,
+        "worst_accuracy": 0.8286,
+        "accuracy_std": 0.0,
+        "mean_test_loss": 0.46308047013282777,
+        "disagreement": 0.0,
+        "transmissions_per_round": 90,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_fully_connected_alpha_10.json"
+      },
+      {
+        "algorithm": "epidemic_local_k4",
+        "topology_type": "dynamic_directed_random_k_out",
+        "aggregation_rule": "uniform_self_plus_incoming",
+        "alpha": 10.0,
+        "round": 3,
+        "mean_accuracy": 0.82539,
+        "worst_accuracy": 0.8192,
+        "accuracy_std": 0.0035444181468895315,
+        "mean_test_loss": 0.47277667707920074,
+        "disagreement": 0.0005016639934902949,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "epidemic_local_k4_alpha_10.json"
+      },
+      {
+        "algorithm": "epidemic_sample_weighted_control_k4",
+        "topology_type": "dynamic_directed_random_k_out",
+        "aggregation_rule": "sample_count_weighted_self_plus_incoming",
+        "alpha": 10.0,
+        "round": 3,
+        "mean_accuracy": 0.82603,
+        "worst_accuracy": 0.8211,
+        "accuracy_std": 0.0033666155111624955,
+        "mean_test_loss": 0.471679617395401,
+        "disagreement": 0.000503348070534722,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "epidemic_sample_weighted_control_k4_alpha_10.json"
+      },
+      {
+        "algorithm": "ring_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 1.0,
+        "round": 3,
+        "mean_accuracy": 0.79942,
+        "worst_accuracy": 0.7755,
+        "accuracy_std": 0.013477522027435173,
+        "mean_test_loss": 0.5268110260820389,
+        "disagreement": 0.000958389982454198,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_ring_degree_4_alpha_1.json"
+      },
+      {
+        "algorithm": "random_regular_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 1.0,
+        "round": 3,
+        "mean_accuracy": 0.79227,
+        "worst_accuracy": 0.7592,
+        "accuracy_std": 0.017191512440736568,
+        "mean_test_loss": 0.5322118597650528,
+        "disagreement": 0.0008838595483069247,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_random_regular_degree_4_alpha_1.json"
+      },
+      {
+        "algorithm": "small_world_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 1.0,
+        "round": 3,
+        "mean_accuracy": 0.7982,
+        "worst_accuracy": 0.7719,
+        "accuracy_std": 0.015353761754045802,
+        "mean_test_loss": 0.5258010267210007,
+        "disagreement": 0.0009617237242772715,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_small_world_degree_4_alpha_1.json"
+      },
+      {
+        "algorithm": "fully_connected",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 1.0,
+        "round": 3,
+        "mean_accuracy": 0.8268,
+        "worst_accuracy": 0.8268,
+        "accuracy_std": 0.0,
+        "mean_test_loss": 0.4735515175819397,
+        "disagreement": 0.0,
+        "transmissions_per_round": 90,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_fully_connected_alpha_1.json"
+      },
+      {
+        "algorithm": "epidemic_local_k4",
+        "topology_type": "dynamic_directed_random_k_out",
+        "aggregation_rule": "uniform_self_plus_incoming",
+        "alpha": 1.0,
+        "round": 3,
+        "mean_accuracy": 0.79352,
+        "worst_accuracy": 0.732,
+        "accuracy_std": 0.030228655279386812,
+        "mean_test_loss": 0.5477317141962051,
+        "disagreement": 0.0006320074326106661,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "epidemic_local_k4_alpha_1.json"
+      },
+      {
+        "algorithm": "epidemic_sample_weighted_control_k4",
+        "topology_type": "dynamic_directed_random_k_out",
+        "aggregation_rule": "sample_count_weighted_self_plus_incoming",
+        "alpha": 1.0,
+        "round": 3,
+        "mean_accuracy": 0.79866,
+        "worst_accuracy": 0.7402,
+        "accuracy_std": 0.029271597154921357,
+        "mean_test_loss": 0.5360269042301178,
+        "disagreement": 0.0007279545725943054,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "epidemic_sample_weighted_control_k4_alpha_1.json"
+      },
+      {
+        "algorithm": "ring_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 0.3,
+        "round": 3,
+        "mean_accuracy": 0.72102,
+        "worst_accuracy": 0.6541,
+        "accuracy_std": 0.030438915880825975,
+        "mean_test_loss": 0.771574374089241,
+        "disagreement": 0.001347314935984488,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_ring_degree_4_alpha_0.3.json"
+      },
+      {
+        "algorithm": "random_regular_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 0.3,
+        "round": 3,
+        "mean_accuracy": 0.72871,
+        "worst_accuracy": 0.6902,
+        "accuracy_std": 0.023566393444903706,
+        "mean_test_loss": 0.7571902860736847,
+        "disagreement": 0.0011740418928873184,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_random_regular_degree_4_alpha_0.3.json"
+      },
+      {
+        "algorithm": "small_world_degree_4",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 0.3,
+        "round": 3,
+        "mean_accuracy": 0.73608,
+        "worst_accuracy": 0.6921,
+        "accuracy_std": 0.0249806645227864,
+        "mean_test_loss": 0.7483706572961807,
+        "disagreement": 0.0014173380783155944,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_small_world_degree_4_alpha_0.3.json"
+      },
+      {
+        "algorithm": "fully_connected",
+        "topology_type": "static_undirected",
+        "aggregation_rule": "sample_count_weighted_self_plus_neighbors",
+        "alpha": 0.3,
+        "round": 3,
+        "mean_accuracy": 0.7703,
+        "worst_accuracy": 0.7703,
+        "accuracy_std": 0.0,
+        "mean_test_loss": 0.6120484283924102,
+        "disagreement": 0.0,
+        "transmissions_per_round": 90,
+        "zero_in_degree_count": 0,
+        "report": "decentralized_fully_connected_alpha_0.3.json"
+      },
+      {
+        "algorithm": "epidemic_local_k4",
+        "topology_type": "dynamic_directed_random_k_out",
+        "aggregation_rule": "uniform_self_plus_incoming",
+        "alpha": 0.3,
+        "round": 3,
+        "mean_accuracy": 0.73832,
+        "worst_accuracy": 0.6616,
+        "accuracy_std": 0.03159866452874237,
+        "mean_test_loss": 0.6880926805925369,
+        "disagreement": 0.0008011429816027183,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "epidemic_local_k4_alpha_0.3.json"
+      },
+      {
+        "algorithm": "epidemic_sample_weighted_control_k4",
+        "topology_type": "dynamic_directed_random_k_out",
+        "aggregation_rule": "sample_count_weighted_self_plus_incoming",
+        "alpha": 0.3,
+        "round": 3,
+        "mean_accuracy": 0.71983,
+        "worst_accuracy": 0.635,
+        "accuracy_std": 0.04225692960923687,
+        "mean_test_loss": 0.7404374561452866,
+        "disagreement": 0.000892440781263466,
+        "transmissions_per_round": 40,
+        "zero_in_degree_count": 0,
+        "report": "epidemic_sample_weighted_control_k4_alpha_0.3.json"
+      },
+      {
+        "algorithm": "epidemic_local_k3",
+        "alpha": 0.3,
+        "transmissions_per_round": 30,
+        "mean_accuracy": 0.7033
+      },
+      {
+        "algorithm": "epidemic_local_k7",
+        "alpha": 0.3,
+        "transmissions_per_round": 70,
+        "mean_accuracy": 0.7636000000000001
+      }
+    ],
+    "reports": [
+      {
+        "source": {
+          "file": "epidemic_local_k3_alpha_0.3.json",
+          "sha256": "300b740d0990b02a76265abb591671bc8c19b8f6b5e1f8fddccc3595b83f5d95"
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "epidemic_k": 3,
+          "aggregation_mode": "paper_epidemic"
+        },
+        "metadata": {
+          "algorithm": "paper_epidemic",
+          "aggregation_rule": "uniform_self_plus_incoming",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+          "comparison_caveat": "Paper EL-Local vs static baselines changes both topology dynamics and aggregation weighting; weighted EL is an explicitly separate control."
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "mean_node_test_accuracy": 0.46214,
+            "worst_node_test_accuracy": 0.2883,
+            "node_test_accuracy_std": 0.09888606777499043,
+            "mean_node_test_loss": 1.6263972282981873,
+            "mean_pairwise_rms_parameter_distance": 0.0018087487971012138,
+            "directed_model_transmissions": 30,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 2,
+            "mean_node_test_accuracy": 0.60092,
+            "worst_node_test_accuracy": 0.5255,
+            "node_test_accuracy_std": 0.0602986865528595,
+            "mean_node_test_loss": 1.058157561044693,
+            "mean_pairwise_rms_parameter_distance": 0.0013961880441534387,
+            "directed_model_transmissions": 30,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 3,
+            "mean_node_test_accuracy": 0.7033,
+            "worst_node_test_accuracy": 0.605,
+            "node_test_accuracy_std": 0.05032893799793515,
+            "mean_node_test_loss": 0.7971745993423461,
+            "mean_pairwise_rms_parameter_distance": 0.0010677952569284699,
+            "directed_model_transmissions": 30,
+            "zero_in_degree_count": 0
+          }
+        ]
+      },
+      {
+        "source": {
+          "file": "epidemic_local_k4_alpha_0.3.json",
+          "sha256": "8d630d3c9933f446a0188327165bd6986ebc2d78e0768bbf7cdc46e00ca57894"
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "epidemic_k": 4,
+          "aggregation_mode": "paper_epidemic"
+        },
+        "metadata": {
+          "algorithm": "paper_epidemic",
+          "aggregation_rule": "uniform_self_plus_incoming",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+          "comparison_caveat": "Paper EL-Local vs static baselines changes both topology dynamics and aggregation weighting; weighted EL is an explicitly separate control."
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "mean_node_test_accuracy": 0.48376,
+            "worst_node_test_accuracy": 0.2883,
+            "node_test_accuracy_std": 0.10087066174066671,
+            "mean_node_test_loss": 1.4652306234359742,
+            "mean_pairwise_rms_parameter_distance": 0.0014641308682053677,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 2,
+            "mean_node_test_accuracy": 0.65125,
+            "worst_node_test_accuracy": 0.5987,
+            "node_test_accuracy_std": 0.03650063698074324,
+            "mean_node_test_loss": 0.9095813962936401,
+            "mean_pairwise_rms_parameter_distance": 0.001057853306431459,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 3,
+            "mean_node_test_accuracy": 0.73832,
+            "worst_node_test_accuracy": 0.6616,
+            "node_test_accuracy_std": 0.03159866452874237,
+            "mean_node_test_loss": 0.6880926805925369,
+            "mean_pairwise_rms_parameter_distance": 0.0008011429816027183,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          }
+        ]
+      },
+      {
+        "source": {
+          "file": "epidemic_local_k4_alpha_1.json",
+          "sha256": "3dbb1c45c961dbe22144ff5c0ee85e10812057881b9eb560e0c66b21cc288df7"
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 1.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "epidemic_k": 4,
+          "aggregation_mode": "paper_epidemic"
+        },
+        "metadata": {
+          "algorithm": "paper_epidemic",
+          "aggregation_rule": "uniform_self_plus_incoming",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+          "comparison_caveat": "Paper EL-Local vs static baselines changes both topology dynamics and aggregation weighting; weighted EL is an explicitly separate control."
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "mean_node_test_accuracy": 0.64703,
+            "worst_node_test_accuracy": 0.548,
+            "node_test_accuracy_std": 0.05569847484446947,
+            "mean_node_test_loss": 0.8936567730712891,
+            "mean_pairwise_rms_parameter_distance": 0.001167364031900271,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 2,
+            "mean_node_test_accuracy": 0.77209,
+            "worst_node_test_accuracy": 0.7576,
+            "node_test_accuracy_std": 0.00956770087325057,
+            "mean_node_test_loss": 0.5908011827278137,
+            "mean_pairwise_rms_parameter_distance": 0.0007266589668780836,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 3,
+            "mean_node_test_accuracy": 0.79352,
+            "worst_node_test_accuracy": 0.732,
+            "node_test_accuracy_std": 0.030228655279386812,
+            "mean_node_test_loss": 0.5477317141962051,
+            "mean_pairwise_rms_parameter_distance": 0.0006320074326106661,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          }
+        ]
+      },
+      {
+        "source": {
+          "file": "epidemic_local_k4_alpha_10.json",
+          "sha256": "3dc3145c4ee655196f822f7d468f3c77e519ec5370b094ca94229c0f4a82c29a"
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 10.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "epidemic_k": 4,
+          "aggregation_mode": "paper_epidemic"
+        },
+        "metadata": {
+          "algorithm": "paper_epidemic",
+          "aggregation_rule": "uniform_self_plus_incoming",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+          "comparison_caveat": "Paper EL-Local vs static baselines changes both topology dynamics and aggregation weighting; weighted EL is an explicitly separate control."
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "mean_node_test_accuracy": 0.74629,
+            "worst_node_test_accuracy": 0.7254,
+            "node_test_accuracy_std": 0.01015750461481558,
+            "mean_node_test_loss": 0.6589341229200363,
+            "mean_pairwise_rms_parameter_distance": 0.0008457394610325498,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 2,
+            "mean_node_test_accuracy": 0.80293,
+            "worst_node_test_accuracy": 0.7899,
+            "node_test_accuracy_std": 0.005849965811865905,
+            "mean_node_test_loss": 0.5250962461614609,
+            "mean_pairwise_rms_parameter_distance": 0.0005118715779791865,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 3,
+            "mean_node_test_accuracy": 0.82539,
+            "worst_node_test_accuracy": 0.8192,
+            "node_test_accuracy_std": 0.0035444181468895315,
+            "mean_node_test_loss": 0.47277667707920074,
+            "mean_pairwise_rms_parameter_distance": 0.0005016639934902949,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          }
+        ]
+      },
+      {
+        "source": {
+          "file": "epidemic_local_k7_alpha_0.3.json",
+          "sha256": "50458fe25439d43a16d7298b5aef0eac4b53953ce4bafadeb6cfafd4741a83e9"
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "epidemic_k": 7,
+          "aggregation_mode": "paper_epidemic"
+        },
+        "metadata": {
+          "algorithm": "paper_epidemic",
+          "aggregation_rule": "uniform_self_plus_incoming",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+          "comparison_caveat": "Paper EL-Local vs static baselines changes both topology dynamics and aggregation weighting; weighted EL is an explicitly separate control."
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "mean_node_test_accuracy": 0.52804,
+            "worst_node_test_accuracy": 0.436,
+            "node_test_accuracy_std": 0.050354487386925106,
+            "mean_node_test_loss": 1.2628988126564027,
+            "mean_pairwise_rms_parameter_distance": 0.0006717029304774777,
+            "directed_model_transmissions": 70,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 2,
+            "mean_node_test_accuracy": 0.73508,
+            "worst_node_test_accuracy": 0.6868,
+            "node_test_accuracy_std": 0.023339400163671725,
+            "mean_node_test_loss": 0.7264560359191895,
+            "mean_pairwise_rms_parameter_distance": 0.00044391454252409103,
+            "directed_model_transmissions": 70,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 3,
+            "mean_node_test_accuracy": 0.7636000000000001,
+            "worst_node_test_accuracy": 0.7452,
+            "node_test_accuracy_std": 0.013577555008174343,
+            "mean_node_test_loss": 0.612176175327301,
+            "mean_pairwise_rms_parameter_distance": 0.0003239567851929453,
+            "directed_model_transmissions": 70,
+            "zero_in_degree_count": 0
+          }
+        ]
+      },
+      {
+        "source": {
+          "file": "epidemic_sample_weighted_control_k4_alpha_0.3.json",
+          "sha256": "1097d8f2591999be5f50dc6f028eb6ba42908bbdd60497b281586e379e48d293"
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 0.3,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "epidemic_k": 4,
+          "aggregation_mode": "epidemic_sample_weighted_control"
+        },
+        "metadata": {
+          "algorithm": "epidemic_sample_weighted_control",
+          "aggregation_rule": "sample_count_weighted_self_plus_incoming",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+          "comparison_caveat": "Paper EL-Local vs static baselines changes both topology dynamics and aggregation weighting; weighted EL is an explicitly separate control."
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "mean_node_test_accuracy": 0.48639,
+            "worst_node_test_accuracy": 0.2448,
+            "node_test_accuracy_std": 0.09837409669216791,
+            "mean_node_test_loss": 1.4756151156806945,
+            "mean_pairwise_rms_parameter_distance": 0.0016010480422305416,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 2,
+            "mean_node_test_accuracy": 0.65444,
+            "worst_node_test_accuracy": 0.6163,
+            "node_test_accuracy_std": 0.02903495135177604,
+            "mean_node_test_loss": 0.9158454349136352,
+            "mean_pairwise_rms_parameter_distance": 0.0011194858280532103,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 3,
+            "mean_node_test_accuracy": 0.71983,
+            "worst_node_test_accuracy": 0.635,
+            "node_test_accuracy_std": 0.04225692960923687,
+            "mean_node_test_loss": 0.7404374561452866,
+            "mean_pairwise_rms_parameter_distance": 0.000892440781263466,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          }
+        ]
+      },
+      {
+        "source": {
+          "file": "epidemic_sample_weighted_control_k4_alpha_1.json",
+          "sha256": "bccdc4facebcb94761583e3dd968a78d6094b4b89f3591b477122032fd33fb17"
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 1.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "epidemic_k": 4,
+          "aggregation_mode": "epidemic_sample_weighted_control"
+        },
+        "metadata": {
+          "algorithm": "epidemic_sample_weighted_control",
+          "aggregation_rule": "sample_count_weighted_self_plus_incoming",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+          "comparison_caveat": "Paper EL-Local vs static baselines changes both topology dynamics and aggregation weighting; weighted EL is an explicitly separate control."
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "mean_node_test_accuracy": 0.67783,
+            "worst_node_test_accuracy": 0.602,
+            "node_test_accuracy_std": 0.032597946254327145,
+            "mean_node_test_loss": 0.8225143052053452,
+            "mean_pairwise_rms_parameter_distance": 0.001298902410478357,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 2,
+            "mean_node_test_accuracy": 0.77531,
+            "worst_node_test_accuracy": 0.7561,
+            "node_test_accuracy_std": 0.013272109854879888,
+            "mean_node_test_loss": 0.57520769053936,
+            "mean_pairwise_rms_parameter_distance": 0.0008704874328744948,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 3,
+            "mean_node_test_accuracy": 0.79866,
+            "worst_node_test_accuracy": 0.7402,
+            "node_test_accuracy_std": 0.029271597154921357,
+            "mean_node_test_loss": 0.5360269042301178,
+            "mean_pairwise_rms_parameter_distance": 0.0007279545725943054,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          }
+        ]
+      },
+      {
+        "source": {
+          "file": "epidemic_sample_weighted_control_k4_alpha_10.json",
+          "sha256": "e32d07d61e65dba6b9d9f82d0fd1f1a397ac807c1b6a00e6f0608b9cd030d822"
+        },
+        "config": {
+          "seed": 42,
+          "num_clients": 10,
+          "alpha": 10.0,
+          "min_samples_per_client": 1,
+          "data_dir": "data",
+          "batch_size": 64,
+          "local_epochs": 1,
+          "rounds": 3,
+          "optimizer": "SGD",
+          "learning_rate": 0.01,
+          "momentum": 0.9,
+          "device": "auto",
+          "num_workers": 0,
+          "epidemic_k": 4,
+          "aggregation_mode": "epidemic_sample_weighted_control"
+        },
+        "metadata": {
+          "algorithm": "epidemic_sample_weighted_control",
+          "aggregation_rule": "sample_count_weighted_self_plus_incoming",
+          "device": "cuda",
+          "training_samples": 60000,
+          "test_samples": 10000,
+          "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+          "comparison_caveat": "Paper EL-Local vs static baselines changes both topology dynamics and aggregation weighting; weighted EL is an explicitly separate control."
+        },
+        "rounds": [
+          {
+            "round": 1,
+            "mean_node_test_accuracy": 0.74616,
+            "worst_node_test_accuracy": 0.7258,
+            "node_test_accuracy_std": 0.010539468677310058,
+            "mean_node_test_loss": 0.6593296540164948,
+            "mean_pairwise_rms_parameter_distance": 0.0008517940679234301,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 2,
+            "mean_node_test_accuracy": 0.80301,
+            "worst_node_test_accuracy": 0.79,
+            "node_test_accuracy_std": 0.005675112333689957,
+            "mean_node_test_loss": 0.5237092978858948,
+            "mean_pairwise_rms_parameter_distance": 0.0005192504100041189,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          },
+          {
+            "round": 3,
+            "mean_node_test_accuracy": 0.82603,
+            "worst_node_test_accuracy": 0.8211,
+            "node_test_accuracy_std": 0.0033666155111624955,
+            "mean_node_test_loss": 0.471679617395401,
+            "mean_pairwise_rms_parameter_distance": 0.000503348070534722,
+            "directed_model_transmissions": 40,
+            "zero_in_degree_count": 0
+          }
+        ]
+      }
+    ],
+    "interpretation": "Seed 42, 10 nodes, three rounds, development-only; no confidence intervals or significance claims. Not a replication of the paper."
+  },
+  "morph_multiseed": {
+    "verification_date": "2026-09-18",
+    "dataset": "Fashion-MNIST",
+    "alpha": 0.3,
+    "seeds": [
+      42,
+      43,
+      44,
+      45,
+      46
+    ],
+    "num_clients": 10,
+    "rounds": 10,
+    "local_epochs": 1,
+    "model_deliveries_per_round": 40,
+    "total_model_deliveries_per_run": 400,
+    "aggregation": "uniform self plus incoming",
+    "primary_mode": "morph_code_faithful",
+    "selection": {
+      "k": 4,
+      "beta": 500.0,
+      "topology_refresh_interval": 1,
+      "random_peer_count": 1,
+      "selection_mode": "paper_resample"
+    },
+    "learning_controls": {
+      "batch_size": 64,
+      "learning_rate": 0.01,
+      "momentum": 0.9,
+      "optimizer": "SGD",
+      "num_workers": 0,
+      "min_samples_per_client": 1
+    },
+    "source_revision": "57d73b921c317b0f0d7d9f4a71a6db8051beaf82",
+    "std_definition": "Across-seed sample standard deviation, denominator n-1; not confidence intervals",
+    "accuracy_units": "Fractions; multiply by 100 for percent and percentage-point node std",
+    "interpretation": "Development validation only; descriptive results, no significance claims. Code-faithful serving with requested paper-hybrid selection adaptation.",
+    "aggregates": {
+      "Morph code-faithful": {
+        "mean_accuracy": {
+          "mean": 0.8144600000000001,
+          "std": 0.0277957667640236,
+          "min": 0.77463,
+          "max": 0.83908,
+          "n": 5
+        },
+        "worst_accuracy": {
+          "mean": 0.77538,
+          "std": 0.027953300341820093,
+          "min": 0.7377,
+          "max": 0.8059,
+          "n": 5
+        },
+        "accuracy_std": {
+          "mean": 0.020195382399350467,
+          "std": 0.0029672398251585127,
+          "min": 0.015416903061250676,
+          "max": 0.022655100970863058,
+          "n": 5
+        },
+        "mean_test_loss": {
+          "mean": 0.48361537910985947,
+          "std": 0.051852227936850355,
+          "min": 0.44661073137044904,
+          "max": 0.556814781279564,
+          "n": 5
+        },
+        "disagreement": {
+          "mean": 0.0004895464688063023,
+          "std": 5.862631091936201e-05,
+          "min": 0.00045337299488874686,
+          "max": 0.0005938322975387663,
+          "n": 5
+        }
+      },
+      "EL-Local uniform": {
+        "mean_accuracy": {
+          "mean": 0.817068,
+          "std": 0.027173170039581307,
+          "min": 0.76941,
+          "max": 0.83786,
+          "n": 5
+        },
+        "worst_accuracy": {
+          "mean": 0.75552,
+          "std": 0.04758252830609152,
+          "min": 0.7017,
+          "max": 0.8063,
+          "n": 5
+        },
+        "accuracy_std": {
+          "mean": 0.029019031570663847,
+          "std": 0.013587781584056267,
+          "min": 0.013718615090452817,
+          "max": 0.044430517665226446,
+          "n": 5
+        },
+        "mean_test_loss": {
+          "mean": 0.5004821319961548,
+          "std": 0.06924902948593106,
+          "min": 0.4532638642454147,
+          "max": 0.6225249584054947,
+          "n": 5
+        },
+        "disagreement": {
+          "mean": 0.0005680206442117442,
+          "std": 6.45968114897551e-05,
+          "min": 0.000518636137600759,
+          "max": 0.0006640252261385153,
+          "n": 5
+        }
+      }
+    },
+    "summary_source": {
+      "file": "morph_code_faithful_vs_el_alpha_0.3_multiseed_summary.json",
+      "sha256": "a2a6d353195411f4b421a89819789f34f435969e9205529ad86d5560c9a72edd"
+    },
+    "report_sources": [
+      {
+        "algorithm": "EL-Local uniform",
+        "seed": 42,
+        "file": "longrun_el_alpha_0.3_seed_42.json",
+        "sha256": "408a22af900a0b84401e6deb5e3982dd245d40d61f84fe3b0a038d867b9d23b5",
+        "config_sha256": "4bc9fb1ddf0a37a5eb09fce25275b8d77bff9f2ecdbf1995edac8a4d4441961f",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 1,
+        "reused_existing_report": true
+      },
+      {
+        "algorithm": "Morph code-faithful",
+        "seed": 42,
+        "file": "morph_code_faithful_alpha_0.3_seed_42_rounds_10.json",
+        "sha256": "96ad91cfbfe85bf4649d5c14c6d3172821bbf83b9e30a34c7b5a7e9c9180d91a",
+        "config_sha256": "6c3645c7526aa1fe97e41a865e5b9e95ff15ad047b29f74aecca530bbec4d6b2",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 0,
+        "reused_existing_report": false
+      },
+      {
+        "algorithm": "EL-Local uniform",
+        "seed": 43,
+        "file": "el_uniform_alpha_0.3_seed_43_rounds_10.json",
+        "sha256": "9c2cc00957d3562a344c1cb73aa12df15e9d34375966067705aeb713ffd8ea61",
+        "config_sha256": "39b19c2eaba7cb1ce9920de63d126e7730bc72f8a4003eac84ce5bc369ae41cf",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 2,
+        "reused_existing_report": false
+      },
+      {
+        "algorithm": "Morph code-faithful",
+        "seed": 43,
+        "file": "morph_code_faithful_alpha_0.3_seed_43_rounds_10.json",
+        "sha256": "ce9b982af8657af706df4acb7e3aececacc106061fa27c898eb825b57b69c905",
+        "config_sha256": "1e9d8be53ec178069c331b9c47492d44cfd56e9926175feea0fca07426bd920e",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 0,
+        "reused_existing_report": false
+      },
+      {
+        "algorithm": "EL-Local uniform",
+        "seed": 44,
+        "file": "el_uniform_alpha_0.3_seed_44_rounds_10.json",
+        "sha256": "88f77b60bb7e4e4d91bb7f45fb11194db0b839ae6f419fca4a374277c7b8132c",
+        "config_sha256": "ce48b55b26595f3196570777a183b7cc48de56555c1226337ff70c507abe7819",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 2,
+        "reused_existing_report": false
+      },
+      {
+        "algorithm": "Morph code-faithful",
+        "seed": 44,
+        "file": "morph_code_faithful_alpha_0.3_seed_44_rounds_10.json",
+        "sha256": "867261cad48851cf4a72bf8c5313a7353024af3478a336f03e207364e5c9375f",
+        "config_sha256": "3e69ad26cce81da11ee67ae687249d6c047790fe29e226b83f5d28cff3add90d",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 0,
+        "reused_existing_report": false
+      },
+      {
+        "algorithm": "EL-Local uniform",
+        "seed": 45,
+        "file": "el_uniform_alpha_0.3_seed_45_rounds_10.json",
+        "sha256": "9bcf43a1c0bce87b941179d7aec851863673e2596db8bf2576b43ffd7ebd4870",
+        "config_sha256": "4b9fc031f00b7e87f0b89afddd8a6921a6ab3e9d06aa7cee9a793a5e33258ea5",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 2,
+        "reused_existing_report": false
+      },
+      {
+        "algorithm": "Morph code-faithful",
+        "seed": 45,
+        "file": "morph_code_faithful_alpha_0.3_seed_45_rounds_10.json",
+        "sha256": "4bd0ef534c46cb9e4ff78cc176b1516c8fc83347c35ae279095d4b67da8e4f10",
+        "config_sha256": "6e1f56b670fae9e58b639682ead6e0cdccee4372f45c9d420c38e0cb275898b7",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 0,
+        "reused_existing_report": false
+      },
+      {
+        "algorithm": "EL-Local uniform",
+        "seed": 46,
+        "file": "el_uniform_alpha_0.3_seed_46_rounds_10.json",
+        "sha256": "1b59d2b1c9deee48980f4465a66d86160f40121291ff37bd45b20a0b585453e5",
+        "config_sha256": "b1abdd182d53b101ff3b86ad0c0c04c1cfad9f45262822c5d15e121f790a0b57",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 2,
+        "reused_existing_report": false
+      },
+      {
+        "algorithm": "Morph code-faithful",
+        "seed": 46,
+        "file": "morph_code_faithful_alpha_0.3_seed_46_rounds_10.json",
+        "sha256": "a5af8ad8c75b9b21625ee1741585eef6b921b9c9865eb5c6d52f35ca2f7433b7",
+        "config_sha256": "eb9f96614704415bf5209058abf69dd91fecc68d5c6f798c5ba997697986b9bb",
+        "base_commit": "54fdd31e57b495cb01536a3969858bc06d9678de",
+        "runtime_source_group": 0,
+        "reused_existing_report": false
+      }
+    ],
+    "runtime_source_groups": [
+      {
+        "src/tdl/decentralized/morph.py": "204d269b9acc1d98b72036245defd47ede1fc0016c3996e3faa4dfa6ce49a16e",
+        "src/tdl/decentralized/morph_runner.py": "23fe46291183a5f1f68147e8b7991699ea33531d1faaa7f00938b790ee2dce40",
+        "src/tdl/decentralized/training.py": "f02b83f8f433078f7a038153c37a4d14c9ffa3118a9ace975451b3f2b6b01d07",
+        "src/tdl/decentralized/epidemic.py": "69f447777432b5aa4f8c7196bb008b992814df6f45d0890e31d6a6db117e8ed1",
+        "src/tdl/decentralized/runner.py": "9711b6199d80cc8bf2826aa30f83df490b68cbd0da1a774ea9d5886525c9b8c5",
+        "src/tdl/decentralized/topology.py": "d983b6953113dcd65ec42065950c72c3062d9a4383b11ad7bdca9ece3300c13e",
+        "src/tdl/federated/training.py": "b06fb32523ad7e360952a7bb535f73979b0ceee32675c7f1a340166d92de777f",
+        "src/tdl/federated/aggregation.py": "d425457c72d246ee609a3c5292028941e721d905b74dc31e4de661e5fd6b9415",
+        "src/tdl/models/cnn.py": "b3e6cc3c248cf3526d47671fb7610e25bbdc8ff4d9ca44ca7fc4dfeb10f6ed10",
+        "src/tdl/data/partition.py": "f73fb700c6e45d78358cfb3f6f605e4643f220af9df11aef11c98762a789d578",
+        "src/tdl/seed.py": "230fea915ccaec1f9b7556aaa6e0e4d22c5bf793e2c49d5346e7e925794231c0"
+      },
+      {
+        "src/tdl/decentralized/epidemic.py": "69f447777432b5aa4f8c7196bb008b992814df6f45d0890e31d6a6db117e8ed1",
+        "src/tdl/decentralized/morph.py": "b3acf515e394a5a6e7467b192aba73227f080d367ad5d15747f8a387e327a61a",
+        "src/tdl/decentralized/training.py": "f02b83f8f433078f7a038153c37a4d14c9ffa3118a9ace975451b3f2b6b01d07",
+        "src/tdl/decentralized/runner.py": "9711b6199d80cc8bf2826aa30f83df490b68cbd0da1a774ea9d5886525c9b8c5",
+        "src/tdl/federated/training.py": "b06fb32523ad7e360952a7bb535f73979b0ceee32675c7f1a340166d92de777f",
+        "src/tdl/federated/aggregation.py": "d425457c72d246ee609a3c5292028941e721d905b74dc31e4de661e5fd6b9415",
+        "src/tdl/models/cnn.py": "b3e6cc3c248cf3526d47671fb7610e25bbdc8ff4d9ca44ca7fc4dfeb10f6ed10",
+        "src/tdl/data/partition.py": "f73fb700c6e45d78358cfb3f6f605e4643f220af9df11aef11c98762a789d578",
+        "src/tdl/seed.py": "230fea915ccaec1f9b7556aaa6e0e4d22c5bf793e2c49d5346e7e925794231c0"
+      },
+      {
+        "src/tdl/decentralized/epidemic.py": "69f447777432b5aa4f8c7196bb008b992814df6f45d0890e31d6a6db117e8ed1",
+        "src/tdl/decentralized/morph.py": "204d269b9acc1d98b72036245defd47ede1fc0016c3996e3faa4dfa6ce49a16e",
+        "src/tdl/decentralized/training.py": "f02b83f8f433078f7a038153c37a4d14c9ffa3118a9ace975451b3f2b6b01d07",
+        "src/tdl/decentralized/runner.py": "9711b6199d80cc8bf2826aa30f83df490b68cbd0da1a774ea9d5886525c9b8c5",
+        "src/tdl/federated/training.py": "b06fb32523ad7e360952a7bb535f73979b0ceee32675c7f1a340166d92de777f",
+        "src/tdl/federated/aggregation.py": "d425457c72d246ee609a3c5292028941e721d905b74dc31e4de661e5fd6b9415",
+        "src/tdl/models/cnn.py": "b3e6cc3c248cf3526d47671fb7610e25bbdc8ff4d9ca44ca7fc4dfeb10f6ed10",
+        "src/tdl/data/partition.py": "f73fb700c6e45d78358cfb3f6f605e4643f220af9df11aef11c98762a789d578",
+        "src/tdl/seed.py": "230fea915ccaec1f9b7556aaa6e0e4d22c5bf793e2c49d5346e7e925794231c0"
+      }
+    ],
+    "provenance_note": "Runtime source hashes identify uncommitted experiment bytes; base_commit is not the Morph implementation commit. Existing EL42 report reused; its historical Morph hash belongs only to the unchanged observational cosine helper. Raw reports remain ignored.",
+    "published_implementation": {
+      "commit": "fc472674f416532c21710e583e6c977d9be5a14c",
+      "hash_basis": "committed Git blob bytes; runtime byte hashes retained separately",
+      "files": [
+        {
+          "file": "src/tdl/decentralized/morph.py",
+          "sha256": "be127ea756d16dcf3e6bea5076741f2863f830133090586a9f74b6fb5ef4e49a"
+        },
+        {
+          "file": "src/tdl/decentralized/morph_runner.py",
+          "sha256": "23fe46291183a5f1f68147e8b7991699ea33531d1faaa7f00938b790ee2dce40"
+        },
+        {
+          "file": "src/tdl/decentralized/training.py",
+          "sha256": "daeff89ab08f6427dd8fac9b4ad393987def47e8ec203bc9bb47e065b9680813"
+        },
+        {
+          "file": "src/tdl/decentralized/epidemic.py",
+          "sha256": "09638b25c5d3bfaf4001c611450b5b488f2e4d6967fe235c156f94ad61f67712"
+        },
+        {
+          "file": "src/tdl/decentralized/runner.py",
+          "sha256": "f87300346e254d913be05d20e3f1c5d78fd3bf7e1a114ab27126572a381c6915"
+        },
+        {
+          "file": "src/tdl/decentralized/topology.py",
+          "sha256": "d983b6953113dcd65ec42065950c72c3062d9a4383b11ad7bdca9ece3300c13e"
+        },
+        {
+          "file": "src/tdl/federated/training.py",
+          "sha256": "b06fb32523ad7e360952a7bb535f73979b0ceee32675c7f1a340166d92de777f"
+        },
+        {
+          "file": "src/tdl/federated/aggregation.py",
+          "sha256": "d425457c72d246ee609a3c5292028941e721d905b74dc31e4de661e5fd6b9415"
+        },
+        {
+          "file": "src/tdl/models/cnn.py",
+          "sha256": "57ec6978714c62379658c6de33e4d163ad240f02ea0189485a6e624e39c4101c"
+        },
+        {
+          "file": "src/tdl/data/partition.py",
+          "sha256": "f73fb700c6e45d78358cfb3f6f605e4643f220af9df11aef11c98762a789d578"
+        },
+        {
+          "file": "src/tdl/seed.py",
+          "sha256": "e8162101168daeca0aaa36cee817efab3f9ab96affa2e32edee5831ba2888965"
+        }
+      ]
+    }
   }
 }

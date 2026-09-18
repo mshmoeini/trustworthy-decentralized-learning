@@ -267,6 +267,12 @@ def plot_figures(snapshot, output_dir):
                  "CPU | seed 42 | recorded rounded metrics | 2026-09-14", fontsize=13)
     save(fig, output_dir, "centralized_baseline")
     plot_milestone4(snapshot["milestone4"], output_dir)
+    if "epidemic" in snapshot:
+        from plot_epidemic_checks import plot
+        plot(snapshot, output_dir)
+    if "morph_multiseed" in snapshot:
+        from plot_morph_checks import plot as plot_morph
+        plot_morph(snapshot, output_dir)
 
 
 def plot_milestone4(data, output_dir):
@@ -367,12 +373,18 @@ def main():
         if previous and "milestone4" in previous:
             old = previous["milestone4"]
             snapshot["milestone4"]["original_run_source_files"] = old.get("original_run_source_files", old["source_code"]["files"])
+        if previous and "epidemic" in previous:
+            from plot_epidemic_checks import archive
+            archive(snapshot, args.results_dir)
+        if previous and "morph_multiseed" in previous:
+            snapshot["morph_multiseed"] = previous["morph_multiseed"]
         validate_snapshot(snapshot)
         args.snapshot.parent.mkdir(parents=True, exist_ok=True)
         args.snapshot.write_text(json.dumps(snapshot, indent=2, allow_nan=False) + "\n", encoding="utf-8")
     snapshot = json.loads(args.snapshot.read_text(encoding="utf-8"))
     plot_figures(snapshot, args.output_dir)
-    print(f"Validated snapshot and generated eight PNG/SVG figure pairs in {args.output_dir}")
+    count = 8 + 2 * ("epidemic" in snapshot) + ("morph_multiseed" in snapshot)
+    print(f"Validated snapshot and generated {count} PNG/SVG figure pairs in {args.output_dir}")
 
 
 if __name__ == "__main__":
