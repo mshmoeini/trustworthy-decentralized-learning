@@ -18,6 +18,8 @@ import networkx as nx
 import torch
 
 from tdl.config import load_config
+from tdl.byzantine.attacks import start_snapshots, outgoing_payloads
+from tdl.byzantine.diagnostics import delivery_summary
 from tdl.decentralized.runner import evaluate_nodes, prepare_experiment
 from tdl.decentralized.training import train_node_snapshots, summarize_local_training
 from tdl.federated.aggregation import weighted_average_state_dicts
@@ -78,7 +80,7 @@ def communication_summary(graph, previous=None):
             "average_aggregation_size_including_self": 1 + statistics.mean(incoming)}
 
 
-def aggregate_incoming(snapshot, counts, graph, aggregation_mode="paper_epidemic", node_order=None):
+def aggregate_incoming(snapshot, counts, graph, aggregation_mode="paper_epidemic", node_order=None, self_snapshot=None):
     """Read only frozen states; self plus incoming senders, never successors.
 
     Morph EL_Local.run skips averaging when no model is received. Cloning the
@@ -95,13 +97,16 @@ def aggregate_incoming(snapshot, counts, graph, aggregation_mode="paper_epidemic
     if len(order) != len(graph) or set(order) != set(graph):
         raise ValueError("node_order must contain every node exactly once.")
     updates = {}
+    own = snapshot if self_snapshot is None else self_snapshot
+    if set(own) != set(snapshot):
+        raise ValueError("Self states must match sender IDs")
     for node in order:
         senders = sorted({node, *graph.predecessors(node)})
         if len(senders) == 1:
-            updates[node] = {key: value.detach().clone() for key, value in snapshot[node].items()}
+            updates[node] = {key: value.detach().clone() for key, value in own[node].items()}
         else:
             weights = [1 if aggregation_mode == "paper_epidemic" else counts[sender] for sender in senders]
-            updates[node] = weighted_average_state_dicts([snapshot[sender] for sender in senders], weights)
+            updates[node] = weighted_average_state_dicts([own[sender] if sender == node else snapshot[sender] for sender in senders], weights)
     return updates
 
 
@@ -111,14 +116,20 @@ def run_epidemic_round(models, loaders, config, device, round_number, node_order
         raise ValueError("Unknown aggregation_mode.")
     if set(models) != set(range(len(models))):
         raise ValueError("Node IDs must be 0..n-1.")
+    starts = start_snapshots(models, config)
     snapshot, counts, local_metrics = train_node_snapshots(models, loaders, config, device, round_number, node_order)
+    outgoing = outgoing_payloads(starts, snapshot, config) if starts is not None else snapshot
     # Communication sampling follows the post-training snapshot barrier.
     graph = sample_communication(len(models), config["epidemic_k"], config["seed"], round_number)
-    updates = aggregate_incoming(snapshot, counts, graph, config["aggregation_mode"], node_order)
+    updates = aggregate_incoming(outgoing, counts, graph, config["aggregation_mode"], node_order,
+                                 **({"self_snapshot": snapshot} if starts is not None else {}))
     # Every next-round state is computed before any live state is installed.
     for node in sorted(models):
         models[node].load_state_dict(updates[node])
-    return summarize_local_training(round_number, counts, local_metrics), graph
+    metrics = summarize_local_training(round_number, counts, local_metrics)
+    if "byzantine_nodes" in config or "attack" in config:
+        metrics["byzantine_deliveries"] = delivery_summary(graph, config.get("byzantine_nodes", []), starts is not None)
+    return metrics, graph
 
 
 def run(config_path, output, alpha=None, k=None, aggregation_mode=None):

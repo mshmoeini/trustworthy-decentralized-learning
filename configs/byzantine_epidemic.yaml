@@ -1,0 +1,19 @@
+seed: 42
+num_clients: 10
+alpha: 0.3
+min_samples_per_client: 1
+data_dir: data
+batch_size: 64
+local_epochs: 1
+rounds: 10
+optimizer: SGD
+learning_rate: 0.01
+momentum: 0.9
+device: auto
+num_workers: 0
+epidemic_k: 4
+aggregation_mode: paper_epidemic
+byzantine_nodes:
+- 0
+attack: sign_flip
+attack_strength: 1.0

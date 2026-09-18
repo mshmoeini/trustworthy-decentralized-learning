@@ -7,6 +7,8 @@ import random
 
 import networkx as nx
 import torch
+from tdl.byzantine.attacks import start_snapshots, outgoing_payloads
+from tdl.byzantine.diagnostics import delivery_summary
 
 from tdl.decentralized.epidemic import aggregate_incoming, communication_summary
 from tdl.decentralized.training import train_node_snapshots, summarize_local_training
@@ -271,7 +273,7 @@ class MorphProtocol:
         self.random_edges = set()
         self.wanted_senders = {n: set(self.graph.predecessors(n)) for n in self.graph}
 
-    def refresh(self, snapshot, names, round_number):
+    def refresh(self, snapshot, names, round_number, selection_observer=None):
         c = self.config
         if isinstance(round_number, bool) or not isinstance(round_number, Integral) or round_number < 1:
             raise ValueError("Round numbers start at one")
@@ -303,6 +305,9 @@ class MorphProtocol:
             remaining = {p: s for p, s in available.items() if p not in preferred}
             preferences[node] = preferred + sample_peers(remaining, len(remaining), c["beta"], rng)
             guided_proposals.update((p, node) for p in preferred if p not in random_selected)
+        if selection_observer is not None:
+            diagnostics["peer_selection_observations"] = selection_observer(
+                self.views, scores, preferences, random_proposals, guided_proposals)
         if protocol_mode(c) == "morph_code_faithful":
             wanted = {n: preferences[n][:c["k"]] for n in sorted(self.views)}
             graph, negotiation = serve_wanted_senders(wanted, c["k"])
@@ -337,18 +342,23 @@ class MorphProtocol:
                 self.views[receiver].receive(sender, snapshot[sender], metadata[sender], round_number, record)
 
 
-def run_morph_round(models, loaders, protocol, config, device, round_number, node_order=None):
+def run_morph_round(models, loaders, protocol, config, device, round_number, node_order=None, selection_observer=None):
+    starts = start_snapshots(models, config)
     snapshot, counts, local = train_node_snapshots(models, loaders, config, device, round_number, node_order)
+    outgoing = outgoing_payloads(starts, snapshot, config) if starts is not None else snapshot
     names = [n for n, _ in models[min(models)].named_parameters()]
     previous = protocol.graph.copy()
-    diagnostics = protocol.refresh(snapshot, names, round_number)
+    diagnostics = protocol.refresh(snapshot, names, round_number) if selection_observer is None else protocol.refresh(snapshot, names, round_number, selection_observer)
     # Selection uses only previously received peer models and metadata.
-    protocol.exchange(snapshot, round_number)
-    updates = aggregate_incoming(snapshot, counts, protocol.graph, node_order=node_order)
-    similarities = [layerwise_cosine(snapshot[r], snapshot[s], names) for s, r in sorted(protocol.graph.edges())]
+    protocol.exchange(outgoing, round_number)
+    updates = aggregate_incoming(outgoing, counts, protocol.graph, node_order=node_order,
+                                 **({"self_snapshot": snapshot} if starts is not None else {}))
+    similarities = [layerwise_cosine(snapshot[r], outgoing[s], names) for s, r in sorted(protocol.graph.edges())]
     for node in sorted(models):
         models[node].load_state_dict(updates[node])
     edges, old = set(protocol.graph.edges()), set(previous.edges())
+    if "byzantine_nodes" in config or "attack" in config:
+        diagnostics["byzantine_deliveries"] = delivery_summary(protocol.graph, config.get("byzantine_nodes", []), starts is not None)
     return {**summarize_local_training(round_number, counts, local), **diagnostics,
             "morph_mode": protocol_mode(config),
             "aggregation_rule": "uniform", "topology": communication_summary(protocol.graph, previous),
